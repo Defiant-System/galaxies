@@ -1,13 +1,5 @@
-import {
-  U_MODELMATRIX,
-  U_VIEWMATRIX,
-  U_PROJECTIONMATRIX,
-  ATTR_POSITION,
-  U_FADE_AMOUNT
-} from '../Graphics/sharedLiterals.js'
-import { ShaderProgram } from '../Graphics/ShaderProgram.js'
 
-export const vertexShader = `/*glsl*/
+const vertexGridShader = `/*glsl*/
 varying vec3 vp;
 
 void main() {
@@ -17,7 +9,7 @@ void main() {
 }
 `
 
-export const fragmentShader = `/*glsl*/
+const fragmentGridShader = `/*glsl*/
 uniform float ${U_FADE_AMOUNT};
 varying vec3 vp;
 
@@ -31,4 +23,4 @@ void main() {
 }
 `
 
-export const GridShader = new ShaderProgram(vertexShader, fragmentShader)
+const GridShader = new ShaderProgram(vertexGridShader, fragmentGridShader)

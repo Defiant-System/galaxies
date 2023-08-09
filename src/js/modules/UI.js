@@ -1,39 +1,4 @@
 
-const classNames = {
-	header: 'a',
-	_active: 'b',
-	button: 'c',
-	wrapper: 'd',
-	intro: 'e',
-	dismiss: 'f',
-	menu: 'g',
-	undo: 'h',
-	openMenu: 'i',
-	new: 'j',
-	ui: 'k',
-	_hidden: 'l',
-	modal: 'm',
-	loading: 'n',
-	restart: 'o',
-	solve: 'p',
-	topButtons: 'q',
-	bottomButtons: 'r',
-	congratulations: 's',
-	start: 't',
-	tutorial: 'u',
-	tutorialDone: 'v',
-	tutorialModal: 'w',
-	next: 'x',
-	step: 'y',
-	closeMenu: 'z'
-};
-
-// <dev-only>
-for (let key in classNames) {
-	classNames[key] = key
-}
-// </dev-only>
-
 function getElement (name) {
 	return document.querySelector('.' + name)
 }
@@ -43,25 +8,25 @@ function getElements (name) {
 }
 
 function toggleVisibility (element, show) {
-	element.classList.toggle(classNames._hidden, !show)
+	element.classList.toggle("_hidden", !show)
 }
 
-const introModal = getElement(classNames.intro)
-const startButton = getElement(classNames.start)
-const tutorialButton = getElement(classNames.tutorial)
-const tutorialDoneButton = getElement(classNames.tutorialDone)
-const nextButton = getElement(classNames.next)
-const tutorialModal = getElement(classNames.tutorialModal)
-const difficultyModal = getElement(classNames.menu)
-const difficultyButton = getElement(classNames.openMenu)
-const difficultyDoneButton = getElement(classNames.closeMenu)
-const newGameButton = getElement(classNames.new)
-const restartGameButton = getElement(classNames.restart)
-const solveGameButton = getElement(classNames.solve)
-const undoButton = getElement(classNames.undo)
-const loadingScreen = getElement(classNames.loading)
-const topButtons = getElement(classNames.topButtons)
-const congratulations = getElement(classNames.congratulations)
+const introModal = getElement("intro")
+const startButton = getElement("start")
+const tutorialButton = getElement("tutorial")
+const tutorialDoneButton = getElement("tutorialDone")
+const nextButton = getElement("next")
+const tutorialModal = getElement("tutorialModal")
+const difficultyModal = getElement("menu")
+const difficultyButton = getElement("openMenu")
+const difficultyDoneButton = getElement("closeMenu")
+const newGameButton = getElement("new")
+const restartGameButton = getElement("restart")
+const solveGameButton = getElement("solve")
+const undoButton = getElement("undo")
+const loadingScreen = getElement("loading")
+const topButtons = getElement("topButtons")
+const congratulations = getElement("congratulations")
 
 /**
  * UI event handlers
@@ -154,15 +119,17 @@ function updateDifficultyButton () {
 let dirtySettings
 
 function updateSettingButtons () {
-	getElements(classNames.button).forEach(button => {
-		button.classList.remove(classNames._active)
+	getElements("button").forEach(button => {
+		button.classList.remove("_active")
 	})
-	difficultyModal.querySelector(`[data-s="${dirtySettings.size}"]`).classList.add(classNames._active)
-	difficultyModal.querySelector(`[data-w="${+dirtySettings.wrapping}"]`).classList.add(classNames._active)
-	difficultyModal.querySelector(`[data-d="${dirtySettings.difficulty}"]`).classList.add(classNames._active)
+	difficultyModal.querySelector(`[data-s="${dirtySettings.size}"]`).classList.add("_active")
+	difficultyModal.querySelector(`[data-w="${+dirtySettings.wrapping}"]`).classList.add("_active")
+	difficultyModal.querySelector(`[data-d="${dirtySettings.difficulty}"]`).classList.add("_active")
 }
 
 function start () {
+	return;
+	
 	toggleVisibility(loadingScreen, false)
 
 	startButton.onclick = () => {
@@ -177,12 +144,12 @@ function start () {
 	}
 
 	nextButton.onclick = () => {
-		const steps = [...getElements(classNames.step)]
+		const steps = [...getElements("step")]
 		let foundVisible = false
 
 		for (let i = 0; i < steps.length; i++) {
 			const el = steps[i]
-			if (!el.classList.contains(classNames._hidden)) {
+			if (!el.classList.contains("_hidden")) {
 				foundVisible = true
 				toggleVisibility(el, false)
 

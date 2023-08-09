@@ -1,7 +1,5 @@
-import { gl } from '../Graphics.js'
-import { Texture } from './Texture.js'
 
-export class RenderTarget extends Texture {
+class RenderTarget extends Texture {
 	constructor (width, height) {
 		super({ width, height })
 

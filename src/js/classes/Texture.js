@@ -1,6 +1,5 @@
-import { gl } from '../Graphics.js'
 
-export class Texture {
+class Texture {
 	constructor ({ width, height, source, repeat }) {
 		this.texture = gl.createTexture()
 

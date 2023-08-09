@@ -1,6 +1,5 @@
-import { Geometry } from '../Geometry.js'
 
-export const SelectorCube = new Geometry({
+const SelectorCube = new Geometry({
 	vertices: [
 		// Top
 		-1, -1, +1,
@@ -39,4 +38,4 @@ export const SelectorCube = new Geometry({
 		12, 13, 14,
 		12, 14, 15
 	]
-})
+});

@@ -1,16 +1,5 @@
-import {
-  U_MODELMATRIX,
-  U_VIEWMATRIX,
-  U_PROJECTIONMATRIX,
-  ATTR_POSITION,
-  U_TEXTURE,
-  U_TEXTURE_STARS,
-  U_TIME,
-  U_FADE_AMOUNT
-} from '../Graphics/sharedLiterals.js'
-import { ShaderProgram } from '../Graphics/ShaderProgram.js'
 
-export const vertexShader = `/*glsl*/
+const vertexPuzzleShader = `/*glsl*/
 varying vec2 uv;
 varying vec3 vp;
 
@@ -22,7 +11,7 @@ void main() {
 }
 `
 
-export const fragmentShader = `/*glsl*/
+const fragmentPuzzleShader = `/*glsl*/
 uniform sampler2D ${U_TEXTURE};
 uniform sampler2D ${U_TEXTURE_STARS};
 uniform float ${U_TIME};
@@ -61,4 +50,4 @@ void main() {
 }
 `
 
-export const PuzzleShader = new ShaderProgram(vertexShader, fragmentShader)
+const PuzzleShader = new ShaderProgram(vertexPuzzleShader, fragmentPuzzleShader)

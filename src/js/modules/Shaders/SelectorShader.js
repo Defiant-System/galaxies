@@ -1,14 +1,5 @@
-import {
-  U_MODELMATRIX,
-  U_VIEWMATRIX,
-  U_PROJECTIONMATRIX,
-  ATTR_POSITION,
-  U_TIME,
-  U_VARIANT
-} from '../Graphics/sharedLiterals.js'
-import { ShaderProgram } from '../Graphics/ShaderProgram.js'
 
-export const vertexShader = `/*glsl*/
+const vertexSelectorShader = `/*glsl*/
 varying vec3 vp;
 void main() {
   vp = ${ATTR_POSITION};
@@ -16,7 +7,7 @@ void main() {
 }
 `
 
-export const fragmentShader = `/*glsl*/
+const fragmentSelectorShader = `/*glsl*/
 uniform float ${U_TIME};
 uniform float ${U_VARIANT};
 varying vec3 vp;
@@ -30,4 +21,4 @@ void main() {
 }
 `
 
-export const SelectorShader = new ShaderProgram(vertexShader, fragmentShader)
+const SelectorShader = new ShaderProgram(vertexSelectorShader, fragmentSelectorShader)

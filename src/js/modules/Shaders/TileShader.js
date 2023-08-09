@@ -1,7 +1,5 @@
-import { ATTR_POSITION, U_COLOR, U_GALAXY_CENTER, U_GALAXY_CONNECTION, U_LOCKED, U_SPACE_CONNECTION, U_SPACE_POS, U_TIME, U_WORLD_SIZE } from '../Graphics/sharedLiterals.js'
-import { ShaderProgram } from '../Graphics/ShaderProgram.js'
 
-export const vertexShader = `/*glsl*/
+const vertexTileShader = `/*glsl*/
 uniform vec2 ${U_SPACE_POS};
 uniform vec2 ${U_WORLD_SIZE};
 varying vec2 vp; // position
@@ -14,7 +12,7 @@ void main() {
 }
 `
 
-export const fragmentShader = `/*glsl*/
+const fragmentTileShader = `/*glsl*/
 uniform vec4 ${U_SPACE_CONNECTION};
 uniform vec2 ${U_GALAXY_CENTER};
 uniform vec2 ${U_WORLD_SIZE};
@@ -84,4 +82,4 @@ void main() {
 }
 `
 
-export const TileShader = new ShaderProgram(vertexShader, fragmentShader)
+const TileShader = new ShaderProgram(vertexTileShader, fragmentTileShader)

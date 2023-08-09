@@ -1,6 +1,5 @@
-import { Geometry } from '../Geometry.js'
 
-export const Quad = new Geometry({
+const Quad = new Geometry({
 	vertices: [
 		-1, -1, 0,
 		+1, -1, 0,

@@ -8,6 +8,8 @@ let LockSound
 let StarFieldTexture
 
 function createReverb () {
+	return;
+
 	const reverb = TheAudioContext.createConvolver()
 	reverb.buffer = createAudioBuffer(createReverbIR())
 
@@ -15,7 +17,9 @@ function createReverb () {
 }
 
 async function loadAssets () {
+	
 	StarFieldTexture = await generateStarField()
+	return;
 
 	ErrorSound = createAudioBuffer(await createErrorSound())
 	PlaceSound = createAudioBuffer(await createPlaceSound())

@@ -1,13 +1,5 @@
-import {
-  U_MODELMATRIX,
-  U_VIEWMATRIX,
-  U_PROJECTIONMATRIX,
-  ATTR_POSITION,
-  U_TEXTURE_STARS
-} from '../Graphics/sharedLiterals.js'
-import { ShaderProgram } from '../Graphics/ShaderProgram.js'
 
-export const vertexShader = `/*glsl*/
+const vertexStarsShader = `/*glsl*/
 varying vec3 vp;
 
 void main() {
@@ -17,7 +9,7 @@ void main() {
 }
 `
 
-export const fragmentShader = `/*glsl*/
+const fragmentStarsShader = `/*glsl*/
 uniform sampler2D ${U_TEXTURE_STARS};
 
 varying vec3 vp;
@@ -28,4 +20,4 @@ void main() {
 }
 `
 
-export const StarsShader = new ShaderProgram(vertexShader, fragmentShader)
+const StarsShader = new ShaderProgram(vertexStarsShader, fragmentStarsShader)
