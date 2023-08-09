@@ -1,0 +1,16 @@
+<CaptionToolBar>
+	<Group width="13%">
+		<Options>
+			<Tool symbol="icon-undo"/>
+			<Tool symbol="icon-redo"/>
+		</Options>
+	</Group>
+	<Group>
+		<Options>
+			<Tool name="Restart"/>
+			<Tool name="New Game"/>
+			<Tool name="Solve"/>
+		</Options>
+	</Group>
+	<Group class="empty"/>
+</CaptionToolBar>

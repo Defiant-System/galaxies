@@ -1,0 +1,32 @@
+<MenuBar>
+	<Menu name="Galaxies">
+		<Menu name="About Galaxies" shell="win -a"/>
+		<Menu type="divider"/>
+		<Menu name="Quit Galaxies" shell="win -c"/>
+	</Menu>
+	<Menu name="Game">
+		<Menu name="Undo"/>
+		<Menu name="Redo"/>
+		<Menu type="divider"/>
+		<Menu name="Tutorial"/>
+		<Menu type="divider"/>
+		<Menu name="Audio" is-checked="1"/>
+		<Menu name="Size">
+			<Menu name="5x5"/>
+			<Menu name="7x7"/>
+			<Menu name="9x9"/>
+			<Menu name="11x11"/>
+			<Menu name="13x13"/>
+		</Menu>
+		<Menu name="Difficulty">
+			<Menu name="Normal"/>
+			<Menu name="Ridiculous"/>
+		</Menu>
+		<Menu name="Endless" is-checked="1"/>
+	</Menu>
+	<Menu name="Help">
+		<Menu name="Help" click="open-help"/>
+		<Menu type="divider"/>
+		<Menu name="License"/>
+	</Menu>
+</MenuBar>

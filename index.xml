@@ -1,0 +1,23 @@
+<Application>
+	<Head>
+		<meta name="id" value="galaxies"/>
+		<meta name="title" value="Galaxies" version="1.0"/>
+		<meta name="author" value="Pim Schreurs" namespace="ant" ported="Hakan Bilgin"/>
+		<meta name="license" value="AGPL-3.0"/>
+		<meta name="repository" value="https://github.com/Defiant-System/galaxies"/>
+		<meta name="width" value="600"/>
+		<meta name="height" value="600"/>
+		<meta name="top" value="210"/>
+		<meta name="left" value="210"/>
+		<meta name="minimize"/>
+		<meta name="maximize" value="disabled"/>
+		<meta name="resize" value="disabled"/>
+		<meta name="script" value="src/js/main.js"/>
+		<meta name="style" value="src/css/main.less"/>
+		<meta name="icons" value="src/svg/icons.svg"/>
+		<meta name="content" value="src/partials/content.htm"/>
+
+		@import "src/partials/caption-toolbar.xml"
+		@import "src/partials/menubar.xml"
+	</Head>
+</Application>
