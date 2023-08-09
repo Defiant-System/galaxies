@@ -11,7 +11,6 @@ void main() {
 
 const fragmentStarsShader = `/*glsl*/
 uniform sampler2D ${U_TEXTURE_STARS};
-//uniform float ${U_TIME};
 
 varying vec3 vp;
 
