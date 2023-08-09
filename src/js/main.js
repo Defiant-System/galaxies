@@ -32,10 +32,8 @@ gl.enableVertexAttribArray(0);
 @import "./classes/PuzzleGeneration/GenerationAlgorithm1.js"
 @import "./classes/PuzzleGeneration/GenerationAlgorithm2.js"
 @import "./classes/PuzzleGeneration/DebugAlgorithm.js"
-
 @import "./modules/Geometries/SelectorCube.js"
 @import "./modules/Geometries/Quad.js"
-
 @import "./modules/Graphics/sharedLiterals.js"
 @import "./modules/Graphics/ShaderCommons.js"
 
@@ -52,7 +50,6 @@ gl.enableVertexAttribArray(0);
 @import "./modules/globals.js"
 @import "./modules/Input.js"
 @import "./modules/StarFieldGenerator.js"
-
 @import "./modules/utils.js"
 
 @import "./modules/test.js"

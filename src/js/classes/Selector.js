@@ -408,9 +408,9 @@ class Selector {
 
 		if (!this.hasBeenSolved && currentPuzzle.isSolved()) {
 			this.hasBeenSolved = true
-			VictorySong.play()
-			MainSong.duckForABit()
-			showCongratulations()
+			// VictorySong.play()
+			// MainSong.duckForABit()
+			// showCongratulations()
 		}
 	}
 

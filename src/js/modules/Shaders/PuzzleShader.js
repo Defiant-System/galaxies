@@ -27,7 +27,7 @@ vec3 hsv2rgb(vec3 c)
 }
 
 void main() {
-  float t = ${U_TIME} * 0.1;
+  float t = ${U_TIME} * 0.25;
   float fi = 1.0 - ${U_FADE_AMOUNT};
   vec4 data = texture2D(${U_TEXTURE}, uv);
   vec4 starData = texture2D(${U_TEXTURE_STARS}, (vp.xy + t) * 0.1);

@@ -11,7 +11,7 @@ class Camera {
 		this.velY = 0
 		this.zoom = 1000
 
-		document.addEventListener('wheel', this.onWheel.bind(this))
+		// document.addEventListener('wheel', this.onWheel.bind(this))
 	}
 
 	reset () {

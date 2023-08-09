@@ -153,7 +153,7 @@ const mainFSM = new FSM({
 		},
 
 		leave () {
-			hideButtons();
+			// hideButtons();
 		}
 	},
 

@@ -7,12 +7,14 @@ let Input = {
 	dispatch(event) {
 		switch (event.type) {
 			case "mousedown":
+				Input.pointerDown = true;
 				break;
 			case "mousemove":
 				Input.mouseX = event.layerX;
 				Input.mouseY = event.layerY;
 				break;
 			case "mouseup":
+				Input.pointerDown = false;
 				break;
 		}
 	}
