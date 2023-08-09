@@ -7,9 +7,9 @@
 	</Group>
 	<Group>
 		<Options>
-			<Tool name="Restart"/>
-			<Tool name="New Game"/>
-			<Tool name="Solve"/>
+			<Tool name="Restart" click="restart-game"/>
+			<Tool name="New Game" click="new-game"/>
+			<Tool name="Solve" click="solve-game"/>
 		</Options>
 	</Group>
 	<Group class="empty"/>

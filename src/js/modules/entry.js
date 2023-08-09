@@ -1,7 +1,7 @@
 
 function resizeCanvas () {
-	TheCanvas.width = window.innerWidth;
-	TheCanvas.height = window.innerHeight;
+	TheCanvas[0].width = window.innerWidth;
+	TheCanvas[0].height = window.innerHeight;
 	TheCamera.updateMaxZoom();
 }
 
@@ -131,7 +131,7 @@ const mainFSM = new FSM({
 			const puzzle = new PuzzleGenerator(puzzleSettings).generate();
 			setCurrentPuzzle(puzzle);
 			renderer = new PuzzleRenderer();
-			toggleUndo(false);
+			// toggleUndo(false);
 			TheCamera.reset();
 		},
 
@@ -145,7 +145,7 @@ const mainFSM = new FSM({
 	[PUZZLE_STATE]: {
 		enter () {
 			selector = new Selector();
-			showButtons();
+			// showButtons();
 
 			// bindRestart(() => {
 			// 	selector.resetPuzzle();
@@ -184,14 +184,14 @@ function step () {
 	if (selector) { // closure compiler doesn't like the ?. operator here and in render :(
 		selector.step();
 		if (mainFSM.activeState === PUZZLE_STATE) {
-			toggleUndo(selector.canUndo());
+			// toggleUndo(selector.canUndo());
 		}
 	}
 	renderer.step();
 }
 
 function render () {
-	gl.viewport(0, 0, TheCanvas.width, TheCanvas.height);
+	gl.viewport(0, 0, TheCanvas[0].width, TheCanvas[0].height);
 	gl.clearColor(0.02, 0, 0.05, 1);
 	gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT);
 

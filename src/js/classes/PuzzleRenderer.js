@@ -48,7 +48,7 @@ class PuzzleRenderer {
 
 		const { size } = currentPuzzle
 		this.renderMask()
-		gl.viewport(0, 0, TheCanvas.width, TheCanvas.height)
+		gl.viewport(0, 0, TheCanvas[0].width, TheCanvas[0].height)
 		gl.disable(gl.DEPTH_TEST)
 		gl.blendFunc(gl.ONE, gl.ONE)
 
@@ -65,7 +65,7 @@ class PuzzleRenderer {
 			0, 0, 1, 0,
 			0, 0, 0, 1
 		])
-		const currentSpacePos = TheCamera.getRayGridIntersection(TheCanvas.width / 2, TheCanvas.height / 2)
+		const currentSpacePos = TheCamera.getRayGridIntersection(TheCanvas[0].width / 2, TheCanvas[0].height / 2)
 
 		currentSpacePos.x = Math.floor((currentSpacePos.x + 1) / (size * 2))
 		currentSpacePos.y = Math.floor((currentSpacePos.y + 1) / (size * 2))

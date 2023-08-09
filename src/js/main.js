@@ -1,7 +1,7 @@
 
-const FOVY = 0.5;
-const TheCanvas = window.find(".canvas")[0];
-const gl = TheCanvas.getContext("webgl");
+let FOVY = 0.5;
+let TheCanvas = window.find(".canvas");
+let gl = TheCanvas[0].getContext("webgl");
 gl.enable(gl.CULL_FACE);
 gl.enable(gl.BLEND);
 gl.enableVertexAttribArray(0);
@@ -58,9 +58,7 @@ gl.enableVertexAttribArray(0);
 @import "./modules/test.js"
 
 
-
-
-const TheCamera = new Camera();
+let TheCamera = new Camera();
 
 
 
@@ -76,6 +74,10 @@ const galaxies = {
 	dispatch(event) {
 		switch (event.type) {
 			case "window.init":
+				break;
+			case "restart-game":
+				break;
+			case "solve-game":
 				break;
 			case "new-game":
 				mainFSM.setState(PUZZLE_STATE);

@@ -23,7 +23,7 @@ class Camera {
 	}
 
 	updateMaxZoom () {
-		const fovX = 2 * Math.atan(TheCanvas.width / TheCanvas.height * Math.tan(FOVY / 2))
+		const fovX = 2 * Math.atan(TheCanvas[0].width / TheCanvas[0].height * Math.tan(FOVY / 2))
 		const zX = currentPuzzle.size / Math.tan(fovX)
 		const zY = currentPuzzle.size / Math.tan(FOVY)
 
@@ -55,13 +55,13 @@ class Camera {
 
 	step () {
 		if (Input.usingMouse && currentPuzzle.wrapping) {
-			const margin = Math.min(TheCanvas.width, TheCanvas.height) * 0.1
+			const margin = Math.min(TheCanvas[0].width, TheCanvas[0].height) * 0.1
 			const acc = this.zoom * delta
 
 			if (Input.mouseX < margin) this.velX -= acc
 			if (Input.mouseY < margin) this.velY += acc
-			if (Input.mouseX > TheCanvas.width - margin) this.velX += acc
-			if (Input.mouseY > TheCanvas.height - margin) this.velY -= acc
+			if (Input.mouseX > TheCanvas[0].width - margin) this.velX += acc
+			if (Input.mouseY > TheCanvas[0].height - margin) this.velY -= acc
 
 			this.velX -= 4 * this.velX * delta
 			this.velY -= 4 * this.velY * delta
@@ -79,7 +79,7 @@ class Camera {
 
 		this.viewMatrix.getInverse(this.matrix)
 
-		this.projectionMatrix.fromPerspective(FOVY, TheCanvas.width / TheCanvas.height, 1, 1000)
+		this.projectionMatrix.fromPerspective(FOVY, TheCanvas[0].width / TheCanvas[0].height, 1, 1000)
 		this.projectionMatrixInverse.getInverse(this.projectionMatrix)
 	}
 
@@ -133,8 +133,8 @@ class Camera {
 	}
 
 	getRayGridIntersection (x, y) {
-		x = 2 * x / TheCanvas.width - 1
-		y = 1 - 2 * y / TheCanvas.height
+		x = 2 * x / TheCanvas[0].width - 1
+		y = 1 - 2 * y / TheCanvas[0].height
 
 		const origin = this.matrix.getTranslation(new Vector3())
 
