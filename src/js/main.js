@@ -31,7 +31,6 @@ gl.enableVertexAttribArray(0);
 @import "./classes/PuzzleGeneration/GenerationAlgorithmBase.js"
 @import "./classes/PuzzleGeneration/GenerationAlgorithm1.js"
 @import "./classes/PuzzleGeneration/GenerationAlgorithm2.js"
-@import "./classes/PuzzleGeneration/DebugAlgorithm.js"
 @import "./modules/Geometries/SelectorCube.js"
 @import "./modules/Geometries/Quad.js"
 @import "./modules/Graphics/sharedLiterals.js"
@@ -45,7 +44,6 @@ gl.enableVertexAttribArray(0);
 
 @import "./modules/Assets.js"
 @import "./modules/Audio.js"
-@import "./modules/debug.js"
 @import "./modules/entry.js"
 @import "./modules/globals.js"
 @import "./modules/Input.js"
@@ -78,6 +76,9 @@ const galaxies = {
 				break;
 			case "new-game":
 				mainFSM.setState(PUZZLE_STATE);
+				break;
+			case "pause-game":
+				mainFSM.isPaused = !mainFSM.isPaused;
 				break;
 			case "open-help":
 				karaqu.shell("fs -u '~/help/index.md'");

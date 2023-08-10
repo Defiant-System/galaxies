@@ -1,14 +1,13 @@
 
 let identity = [
-	1,0,0,0,
-	0,1,0,0,
-	0,0,1,0,
-	0,0,0,1
-];
-
-let _x = new Vector3();
-let _y = new Vector3();
-let _z = new Vector3();
+		1,0,0,0,
+		0,1,0,0,
+		0,0,1,0,
+		0,0,0,1
+	],
+	_x = new Vector3(),
+	_y = new Vector3(),
+	_z = new Vector3();
 
 class Matrix4 {
 	constructor (els = identity) {

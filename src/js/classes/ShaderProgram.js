@@ -6,13 +6,6 @@ function createShader (type, source) {
 	var shader = gl.createShader(type);
 	gl.shaderSource(shader, source);
 	gl.compileShader(shader);
-
-	// <dev-only>
-	if (!gl.getShaderParameter(shader, gl.COMPILE_STATUS)) {
-		console.warn(source.split('\n').map((line, index) => `${index+1} ${line}`).join('\n'));
-		throw new Error('compile error: ' + gl.getShaderInfoLog(shader));
-	}
-	// </dev-only>
 	return shader;
 }
 
@@ -36,12 +29,6 @@ ${common}
 		gl.attachShader(this.program, createShader(gl.VERTEX_SHADER, vertexShaderHeader + vertexSource));
 		gl.attachShader(this.program, createShader(gl.FRAGMENT_SHADER, fragmentShaderHeader + fragmentSource));
 		gl.linkProgram(this.program);
-
-		// <dev-only>
-		if (!gl.getProgramParameter(this.program, gl.LINK_STATUS)) {
-			throw new Error('link error: ' + gl.getProgramInfoLog(this.program));
-		}
-		// </dev-only>
 
 		this.uniformLocations = {};
 		let numUniforms = gl.getProgramParameter(this.program, gl.ACTIVE_UNIFORMS);

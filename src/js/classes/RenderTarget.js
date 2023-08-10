@@ -7,12 +7,6 @@ class RenderTarget extends Texture {
 
 		gl.bindFramebuffer(gl.FRAMEBUFFER, this.framebuffer);
 		gl.framebufferTexture2D(gl.FRAMEBUFFER, gl.COLOR_ATTACHMENT0, gl.TEXTURE_2D, this.texture, 0);
-		// <dev-only>
-		if (gl.checkFramebufferStatus(gl.FRAMEBUFFER) !== gl.FRAMEBUFFER_COMPLETE) {
-			throw new Error('incomplete framebuffer');
-		}
-		// </dev-only>
-
 		gl.bindFramebuffer(gl.FRAMEBUFFER, null);
 	}
 

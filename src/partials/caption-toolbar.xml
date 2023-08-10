@@ -1,9 +1,10 @@
 <CaptionToolBar>
-	<Group width="13%">
+	<Group width="23%">
 		<Options>
 			<Tool symbol="icon-undo" state="disabled"/>
 			<Tool symbol="icon-redo" state="disabled"/>
 		</Options>
+		<Tool symbol="icon-gear" menu="toolbar-options"/>
 	</Group>
 	<Group>
 		<Options>

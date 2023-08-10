@@ -172,6 +172,9 @@ let mainFSM = new FSM({
 /**
  * Game loop stuff
  */
+
+mainFSM.isPaused = false
+
 function step () {
 	mainFSM.updateFSM();
 
@@ -202,9 +205,12 @@ function render () {
 }
 
 function tick(time) {
+	if (mainFSM.isPaused) return;
+
 	setDelta(clamp((time - lastTime) / 1000, 0.001, 0.5));
 	updateTime();
 	lastTime = time;
+
 	if (!isNaN(delta)) {
 		step();
 		render();

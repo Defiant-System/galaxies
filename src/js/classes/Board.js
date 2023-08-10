@@ -183,19 +183,4 @@ class Board {
 		space.id = id;
 		this.galaxies[id].spaces.add(space);
 	}
-
-	// <dev-only>
-	debug () {
-		let s = '';
-		let mapping = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
-		for (let y = this.size - 1; y >= 0; y--) {
-			for (let x = 0; x < this.size; x++) {
-				let id = this.getSpaceAt({ x, y }).id;
-				s += id === -1 ? ' ' : mapping[id % mapping.length];
-			}
-			s += '\n';
-		}
-		console.log(s);
-	}
-	// </dev-only>
 }

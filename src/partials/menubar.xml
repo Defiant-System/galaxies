@@ -29,4 +29,9 @@
 		<Menu type="divider"/>
 		<Menu name="License"/>
 	</Menu>
+
+	<Menu for="toolbar-options">
+		<Menu name="Restart" click="restart-level"/>
+		<Menu name="Music" click="toggle-music"/>
+	</Menu>
 </MenuBar>
