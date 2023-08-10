@@ -3,10 +3,10 @@ class Grid {
 	render (fadeAmount) {
 		gl.blendFunc(gl.SRC_ALPHA, gl.ONE_MINUS_SRC_ALPHA);
 
-		const scale = currentPuzzle.wrapping ? 100 : currentPuzzle.size + 0.1;
-		const pos = currentPuzzle.wrapping ? TheCamera : { x: currentPuzzle.size - 1, y: currentPuzzle.size - 1 };
+		let scale = currentPuzzle.wrapping ? 100 : currentPuzzle.size + 0.1;
+		let pos = currentPuzzle.wrapping ? TheCamera : { x: currentPuzzle.size - 1, y: currentPuzzle.size - 1 };
 
-		const m = new Matrix4([
+		let m = new Matrix4([
 			scale, 0, 0, 0,
 			0, scale, 0, 0,
 			0, 0, 1, 0,
