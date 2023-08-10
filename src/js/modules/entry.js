@@ -31,7 +31,8 @@ async function playMusic () {
 let mainFSM = new FSM({
 	[INTRO]: {
 		enter () {
-			let puzzle = new PuzzleGenerator(puzzleSettings).generate();
+			// let puzzle = new PuzzleGenerator(puzzleSettings).generate();
+			let puzzle = new Puzzle(1, [], false);
 			currentPuzzle = puzzle;
 
 			TheCanvas[0].width = window.innerWidth;
@@ -82,44 +83,44 @@ let mainFSM = new FSM({
 		}
 	},
 
-	[TUTORIAL_FADE]: {
-		enter () {
-			transitionTime = 0;
-			renderer.handleCancel();
-		},
+	// [TUTORIAL_FADE]: {
+	// 	enter () {
+	// 		transitionTime = 0;
+	// 		renderer.handleCancel();
+	// 	},
 
-		execute () {
-			transitionTime += delta;
-			if (transitionTime >= 0.5) {
-				mainFSM.setState(TUTORIAL);
-			}
-		}
-	},
+	// 	execute () {
+	// 		transitionTime += delta;
+	// 		if (transitionTime >= 0.5) {
+	// 			mainFSM.setState(TUTORIAL);
+	// 		}
+	// 	}
+	// },
 
-	[TUTORIAL]: {
-		enter () {
-			showTutorial();
+	// [TUTORIAL]: {
+	// 	enter () {
+	// 		showTutorial();
 
-			let puzzle = new Puzzle(6, [
-				{ center: new Vector2(1, 0.5), spaces: [] },
-				{ center: new Vector2(2, 1.5), spaces: [] },
-				{ center: new Vector2(4, 0.5), spaces: [] },
-				{ center: new Vector2(4.5, 2.5), spaces: [] },
-				{ center: new Vector2(0.5, 2.5), spaces: [] },
-				{ center: new Vector2(2, 3.5), spaces: [] },
-				{ center: new Vector2(3.5, 4.5), spaces: [] },
-				{ center: new Vector2(2.5, 5.5), spaces: [] },
-				{ center: new Vector2(5.5, 3), spaces: [] }
-			], false);
-			puzzle.setSymmetricallyAt({ x: 0, y: 1 }, 1);
-			puzzle.setSymmetricallyAt({ x: 1, y: 2 }, 1);
-			currentPuzzle = puzzle;
-			renderer = new PuzzleRenderer();
-			selector = new Selector();
-			TheCamera.reset();
-			TheCamera.y = 2;
-		}
-	},
+	// 		let puzzle = new Puzzle(6, [
+	// 			{ center: new Vector2(1, 0.5), spaces: [] },
+	// 			{ center: new Vector2(2, 1.5), spaces: [] },
+	// 			{ center: new Vector2(4, 0.5), spaces: [] },
+	// 			{ center: new Vector2(4.5, 2.5), spaces: [] },
+	// 			{ center: new Vector2(0.5, 2.5), spaces: [] },
+	// 			{ center: new Vector2(2, 3.5), spaces: [] },
+	// 			{ center: new Vector2(3.5, 4.5), spaces: [] },
+	// 			{ center: new Vector2(2.5, 5.5), spaces: [] },
+	// 			{ center: new Vector2(5.5, 3), spaces: [] }
+	// 		], false);
+	// 		puzzle.setSymmetricallyAt({ x: 0, y: 1 }, 1);
+	// 		puzzle.setSymmetricallyAt({ x: 1, y: 2 }, 1);
+	// 		currentPuzzle = puzzle;
+	// 		renderer = new PuzzleRenderer();
+	// 		selector = new Selector();
+	// 		TheCamera.reset();
+	// 		TheCamera.y = 2;
+	// 	}
+	// },
 
 	[PUZZLE_FADE_IN]: {
 		enter () {
@@ -140,15 +141,10 @@ let mainFSM = new FSM({
 	[PUZZLE_STATE]: {
 		enter () {
 			selector = new Selector();
-			// showButtons();
-
-			// bindRestart(() => {
-			// 	selector.resetPuzzle();
-			// })
 		},
 
 		leave () {
-			// hideButtons();
+			
 		}
 	},
 
@@ -157,7 +153,6 @@ let mainFSM = new FSM({
 			transitionTime = 0;
 			selector = null;
 			renderer.handleCancel();
-			// hideCongratulations();
 		},
 
 		execute () {

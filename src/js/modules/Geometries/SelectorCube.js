@@ -1,5 +1,5 @@
 
-const SelectorCube = new Geometry({
+let SelectorCube = new Geometry({
 	vertices: [
 		// Top
 		-1, -1, +1,

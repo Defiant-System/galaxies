@@ -43,6 +43,8 @@ gl.enableVertexAttribArray(0);
 @import "./modules/Shaders/SelectorShader.js"
 @import "./modules/Shaders/GridShader.js"
 
+@import "./modules/Shaders/StarfieldShader.js"
+
 @import "./modules/Assets.js"
 @import "./modules/Audio.js"
 @import "./modules/entry.js"
@@ -78,7 +80,7 @@ const galaxies = {
 			case "restart-level":
 				selector.resetPuzzle();
 				// reset view
-				Self.content.removeClass("show-pause show-success");
+				Self.content.removeClass("show-start show-pause show-success");
 				break;
 			case "toggle-music":
 				break;
@@ -87,7 +89,7 @@ const galaxies = {
 				break;
 			case "new-puzzle":
 				// reset view
-				Self.content.removeClass("show-pause show-success");
+				Self.content.removeClass("show-start show-pause show-success");
 				// reset game
 				mainFSM.setState(PUZZLE_FADE_OUT);
 				break;
@@ -109,7 +111,11 @@ const galaxies = {
 				return value;
 			case "new-game":
 				// reset view
-				Self.content.removeClass("show-pause show-success");
+				Self.content.removeClass("show-start show-pause show-success");
+
+				let puzzle = new PuzzleGenerator(puzzleSettings).generate();
+				currentPuzzle = puzzle;
+				TheCamera.reset();
 
 				mainFSM.setState(PUZZLE_STATE);
 				break;

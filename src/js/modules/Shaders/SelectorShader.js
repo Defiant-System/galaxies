@@ -1,6 +1,7 @@
 
 let vertexSelectorShader = `/*glsl*/
 varying vec3 vp;
+
 void main() {
   vp = ${ATTR_POSITION};
   gl_Position = ${U_PROJECTIONMATRIX} * ${U_VIEWMATRIX} * ${U_MODELMATRIX} * vec4(${ATTR_POSITION}, 1.0);
