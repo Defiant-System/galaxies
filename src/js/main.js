@@ -73,6 +73,10 @@ const galaxies = {
 			case "window.init":
 				break;
 			case "restart-level":
+				selector.resetPuzzle();
+				// reset view
+				Self.content.removeClass("show-pause show-success");
+				break;
 			case "toggle-music":
 				break;
 			case "solve-level":
@@ -81,9 +85,25 @@ const galaxies = {
 			case "new-puzzle":
 				// reset view
 				Self.content.removeClass("show-pause show-success");
-				// selector.resetPuzzle();
+				// reset game
 				mainFSM.setState(PUZZLE_FADE_OUT);
 				break;
+			case "set-puzzle-difficulty":
+				puzzleSettings.difficulty = +event.difficulty;
+				// reset game
+				Self.dispatch({ type: "new-puzzle" });
+				break;
+			case "set-puzzle-size":
+				puzzleSettings.size = +event.arg;
+				// reset game
+				Self.dispatch({ type: "new-puzzle" });
+				break;
+			case "toggle-endless-game":
+				value = puzzleSettings.wrapping;
+				puzzleSettings.wrapping = !value;
+				// reset game
+				Self.dispatch({ type: "new-puzzle" });
+				return value;
 			case "new-game":
 				// reset view
 				Self.content.removeClass("show-pause show-success");
@@ -99,6 +119,7 @@ const galaxies = {
 				// return state value
 				return value;
 			case "puzzle-solved":
+				// selector.fsm.setState(DEFAULT_STATE);
 				// show fireworks
 				Self.content.addClass("show-success");
 				break;

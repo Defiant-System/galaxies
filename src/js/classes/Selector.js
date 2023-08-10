@@ -314,9 +314,7 @@ class Selector {
 
 	undo () {
 		let state = this.undoStack.pop();
-		if (!state) {
-			return;
-		}
+		if (!state) return;
 
 		for (let i = 0; i < state.length; i++) {
 			currentPuzzle.grid[i].id = state[i];

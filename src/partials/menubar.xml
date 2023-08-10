@@ -21,17 +21,17 @@
 
 	<Menu for="toolbar-options">
 		<Menu name="Size&#8230;">
-			<Menu name="5x5" check-group="galaxies-puzzle-size"/>
-			<Menu name="7x7" check-group="galaxies-puzzle-size" is-checked="1"/>
-			<Menu name="9x9" check-group="galaxies-puzzle-size"/>
-			<Menu name="11x11" check-group="galaxies-puzzle-size"/>
-			<Menu name="13x13" check-group="galaxies-puzzle-size"/>
+			<Menu name="5x5" click="set-puzzle-size" arg="5" check-group="galaxies-puzzle-size"/>
+			<Menu name="7x7" click="set-puzzle-size" arg="7" check-group="galaxies-puzzle-size" is-checked="1"/>
+			<Menu name="9x9" click="set-puzzle-size" arg="9" check-group="galaxies-puzzle-size"/>
+			<Menu name="11x11" click="set-puzzle-size" arg="11" check-group="galaxies-puzzle-size"/>
+			<Menu name="13x13" click="set-puzzle-size" arg="13" check-group="galaxies-puzzle-size"/>
 		</Menu>
 		<Menu name="Difficulty&#8230;">
-			<Menu name="Normal" check-group="galaxies-game-difficulty" is-checked="1"/>
-			<Menu name="Ridiculous" check-group="galaxies-game-difficulty"/>
+			<Menu name="Normal" click="set-puzzle-difficulty" arg="0" check-group="galaxies-game-difficulty" is-checked="1"/>
+			<Menu name="Ridiculous" click="set-puzzle-difficulty" arg="1" check-group="galaxies-game-difficulty"/>
 		</Menu>
 		<Menu type="divider"/>
-		<Menu name="Endless" check-group="galaxies-endless-game"/>
+		<Menu name="Endless" click="toggle-endless-game" check-group="galaxies-endless-game"/>
 	</Menu>
 </MenuBar>
