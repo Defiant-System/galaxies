@@ -8,6 +8,7 @@
 	<Group>
 		<Options>
 			<Tool name="New Game" click="new-game"/>
+			<Tool name="New Puzzle" click="new-puzzle"/>
 			<Tool name="Restart" click="restart-level"/>
 			<Tool name="Solve" click="solve-level"/>
 		</Options>

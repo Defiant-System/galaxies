@@ -157,7 +157,7 @@ let mainFSM = new FSM({
 			transitionTime = 0;
 			selector = null;
 			renderer.handleCancel();
-			hideCongratulations();
+			// hideCongratulations();
 		},
 
 		execute () {
@@ -194,13 +194,11 @@ function render () {
 	gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT);
 
 	bg.render();
-	if (selector) {
-		selector.render();
-	}
+	if (selector) selector.render();
+	
 	renderer.render();
-	if (selector) {
-		selector.renderPass2();
-	}
+	if (selector) selector.renderPass2();
+	
 	fg.render();
 }
 

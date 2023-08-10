@@ -72,19 +72,36 @@ const galaxies = {
 		switch (event.type) {
 			case "window.init":
 				break;
-			case "new-game":
 			case "restart-level":
-			case "solve-level":
 			case "toggle-music":
 				break;
+			case "solve-level":
+				selector.solvePuzzle();
+				break;
+			case "new-puzzle":
+				// reset view
+				Self.content.removeClass("show-pause show-success");
+				// selector.resetPuzzle();
+				mainFSM.setState(PUZZLE_FADE_OUT);
+				break;
 			case "new-game":
+				// reset view
+				Self.content.removeClass("show-pause show-success");
+
 				mainFSM.setState(PUZZLE_STATE);
 				break;
 			case "pause-game":
 				value = !mainFSM.isPaused;
 				mainFSM.isPaused = value;
 				if (!value) tick();
+				// show/hide pause view
+				Self.content[value ? "removeClass" : "addClass"]("show-pause");
+				// return state value
 				return value;
+			case "puzzle-solved":
+				// show fireworks
+				Self.content.addClass("show-success");
+				break;
 			case "open-help":
 				karaqu.shell("fs -u '~/help/index.md'");
 				break;

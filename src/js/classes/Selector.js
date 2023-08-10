@@ -91,8 +91,7 @@ class Selector {
 				execute: () => {
 					if (Input.pointerDown) {
 						fsm.setState(DRAG_OR_DRAW_STATE);
-					}
-					else if (Input.usingMouse) {
+					} else {
 						// Hover visual
 						this.clearCursors();
 						let pos = this.getSpacePosAtPointer();
@@ -404,6 +403,10 @@ class Selector {
 			// VictorySong.play()
 			// MainSong.duckForABit()
 			// showCongratulations()
+
+			Input.pointerDown = false;
+
+			galaxies.dispatch({ type: "puzzle-solved" });
 		}
 	}
 

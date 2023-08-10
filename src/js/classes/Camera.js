@@ -54,7 +54,7 @@ class Camera {
 	}
 
 	step () {
-		if (Input.usingMouse && currentPuzzle.wrapping) {
+		if (currentPuzzle.wrapping) {
 			let margin = Math.min(TheCanvas[0].width, TheCanvas[0].height) * 0.1;
 			let acc = this.zoom * delta;
 
