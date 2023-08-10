@@ -1,17 +1,18 @@
 <CaptionToolBar>
-	<Group width="23%">
+	<Group width="13%">
 		<Options>
 			<Tool symbol="icon-undo" state="disabled"/>
 			<Tool symbol="icon-redo" state="disabled"/>
 		</Options>
-		<Tool symbol="icon-gear" menu="toolbar-options"/>
 	</Group>
 	<Group>
 		<Options>
-			<Tool name="Restart" click="restart-game"/>
 			<Tool name="New Game" click="new-game"/>
-			<Tool name="Solve" click="solve-game"/>
+			<Tool name="Restart" click="restart-level"/>
+			<Tool name="Solve" click="solve-level"/>
 		</Options>
 	</Group>
-	<Group class="empty"/>
+	<Group width="13%">
+		<Tool symbol="icon-gear" menu="toolbar-options"/>
+	</Group>
 </CaptionToolBar>

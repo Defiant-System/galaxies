@@ -31,7 +31,12 @@
 	</Menu>
 
 	<Menu for="toolbar-options">
+		<Menu name="New Game" click="new-game"/>
+		<Menu type="divider"/>
+		<Menu name="Pause" click="pause-game" check-group="pause-game"/>
 		<Menu name="Restart" click="restart-level"/>
-		<Menu name="Music" click="toggle-music"/>
+		<Menu name="Solve" click="solve-level"/>
+		<Menu type="divider"/>
+		<Menu name="Music" click="toggle-music" is-checked="1"/>
 	</Menu>
 </MenuBar>

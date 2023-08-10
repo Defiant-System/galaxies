@@ -67,19 +67,24 @@ const galaxies = {
 		// DEV-ONLY-END
 	},
 	dispatch(event) {
+		let Self = galaxies,
+			value;
 		switch (event.type) {
 			case "window.init":
 				break;
-			case "restart-game":
-				break;
-			case "solve-game":
+			case "new-game":
+			case "restart-level":
+			case "solve-level":
+			case "toggle-music":
 				break;
 			case "new-game":
 				mainFSM.setState(PUZZLE_STATE);
 				break;
 			case "pause-game":
-				mainFSM.isPaused = !mainFSM.isPaused;
-				break;
+				value = !mainFSM.isPaused;
+				mainFSM.isPaused = value;
+				if (!value) tick();
+				return value;
 			case "open-help":
 				karaqu.shell("fs -u '~/help/index.md'");
 				break;
