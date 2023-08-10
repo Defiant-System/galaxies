@@ -1,5 +1,5 @@
 
-const vertexGridShader = `/*glsl*/
+let vertexGridShader = `/*glsl*/
 varying vec3 vp;
 
 void main() {
@@ -7,9 +7,9 @@ void main() {
 
   gl_Position = ${U_PROJECTIONMATRIX} * ${U_VIEWMATRIX} * ${U_MODELMATRIX} * vec4(${ATTR_POSITION}, 1.0);
 }
-`
+`;
 
-const fragmentGridShader = `/*glsl*/
+let fragmentGridShader = `/*glsl*/
 uniform float ${U_FADE_AMOUNT};
 varying vec3 vp;
 
@@ -21,6 +21,6 @@ void main() {
   float g = smoothstep(0.2, 0.4, sqrt(pow(x, 16.0) + pow(y, 16.0)) * 2.0 - 1.0);
   gl_FragColor = vec4(vec3(1.0), g * 0.08 * (1.0 - ${U_FADE_AMOUNT}));
 }
-`
+`;
 
-const GridShader = new ShaderProgram(vertexGridShader, fragmentGridShader)
+let GridShader = new ShaderProgram(vertexGridShader, fragmentGridShader);

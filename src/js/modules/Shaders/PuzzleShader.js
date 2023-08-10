@@ -1,5 +1,5 @@
 
-const vertexPuzzleShader = `/*glsl*/
+let vertexPuzzleShader = `/*glsl*/
 varying vec2 uv;
 varying vec3 vp;
 
@@ -9,9 +9,9 @@ void main() {
 
   gl_Position = ${U_PROJECTIONMATRIX} * ${U_VIEWMATRIX} * ${U_MODELMATRIX} * vec4(${ATTR_POSITION}, 1.0);
 }
-`
+`;
 
-const fragmentPuzzleShader = `/*glsl*/
+let fragmentPuzzleShader = `/*glsl*/
 uniform sampler2D ${U_TEXTURE};
 uniform sampler2D ${U_TEXTURE_STARS};
 uniform float ${U_TIME};
@@ -48,6 +48,6 @@ void main() {
 
   gl_FragColor = vec4(cc * a, 1.0);
 }
-`
+`;
 
-const PuzzleShader = new ShaderProgram(vertexPuzzleShader, fragmentPuzzleShader)
+let PuzzleShader = new ShaderProgram(vertexPuzzleShader, fragmentPuzzleShader);

@@ -1,5 +1,5 @@
 
-const vertexStarsShader = `/*glsl*/
+let vertexStarsShader = `/*glsl*/
 varying vec3 vp;
 
 void main() {
@@ -9,7 +9,7 @@ void main() {
 }
 `;
 
-const fragmentStarsShader = `/*glsl*/
+let fragmentStarsShader = `/*glsl*/
 uniform sampler2D ${U_TEXTURE_STARS};
 
 varying vec3 vp;
@@ -20,4 +20,4 @@ void main() {
 }
 `;
 
-const StarsShader = new ShaderProgram(vertexStarsShader, fragmentStarsShader);
+let StarsShader = new ShaderProgram(vertexStarsShader, fragmentStarsShader);

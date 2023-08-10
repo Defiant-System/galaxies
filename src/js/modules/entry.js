@@ -1,32 +1,25 @@
 
-function resizeCanvas () {
-	TheCanvas[0].width = window.innerWidth;
-	TheCanvas[0].height = window.innerHeight;
-	TheCamera.updateMaxZoom();
-}
-
-// window.onresize = resizeCanvas
-
 /**
  * Global graphics
  */
-const bg = new StarsLayer(-2);
-const fg = new StarsLayer(5);
+let bg = new StarsLayer(-2),
+	fg = new StarsLayer(5);
 
 // Some shared variables for the different states
-let renderer;
-let selector;
-let transitionTime;
+let renderer,
+	selector,
+	transitionTime,
+	lastTime = 0;
 
 /**
  * The main state machine
  */
-const INTRO = 1;
-const PUZZLE_FADE_IN = 2;
-const PUZZLE_STATE = 3;
-const PUZZLE_FADE_OUT = 4;
-const TUTORIAL_FADE = 5;
-const TUTORIAL = 6;
+let INTRO = 1,
+	PUZZLE_FADE_IN = 2,
+	PUZZLE_STATE = 3,
+	PUZZLE_FADE_OUT = 4,
+	TUTORIAL_FADE = 5,
+	TUTORIAL = 6;
 
 async function playMusic () {
 	await TheAudioContext.resume();
@@ -35,13 +28,15 @@ async function playMusic () {
 	}
 }
 
-const mainFSM = new FSM({
+let mainFSM = new FSM({
 	[INTRO]: {
 		enter () {
-			const puzzle = new PuzzleGenerator(puzzleSettings).generate();
+			let puzzle = new PuzzleGenerator(puzzleSettings).generate();
 			setCurrentPuzzle(puzzle);
 
-			resizeCanvas();
+			TheCanvas[0].width = window.innerWidth;
+			TheCanvas[0].height = window.innerHeight;
+			TheCamera.updateMaxZoom();
 
 			renderer = new PuzzleRenderer();
 			TheCamera.reset();
@@ -49,39 +44,39 @@ const mainFSM = new FSM({
 			// bindStart(() => {
 			// 	playMusic();
 			// 	mainFSM.setState(PUZZLE_STATE);
-			// })
+			// });
 
 			// bindTutorial(() => {
 			// 	if (mainFSM.activeState !== TUTORIAL) {
 			// 		playMusic();
 			// 		mainFSM.setState(TUTORIAL_FADE);
 			// 	}
-			// })
+			// });
 
 			// bindTutorialEnd(() => {
 			// 	mainFSM.setState(PUZZLE_FADE_OUT);
-			// })
+			// });
 
 			// bindDifficultySelect((settings) => {
 			// 	updatePuzzleSettings(settings);
 			// 	mainFSM.setState(PUZZLE_FADE_OUT);
-			// })
+			// });
 
 			// bindNewGame(() => {
 			// 	mainFSM.setState(PUZZLE_FADE_OUT);
-			// })
+			// });
 
 			// bindUndo(() => {
 			// 	if (selector) {
 			// 		selector.undo();
 			// 	}
-			// })
+			// });
 
 			// bindSolve(() => {
 			// 	if (selector) {
 			// 		selector.solvePuzzle();
 			// 	}
-			// })
+			// });
 
 			// start();
 		}
@@ -94,7 +89,7 @@ const mainFSM = new FSM({
 		},
 
 		execute () {
-			transitionTime += delta
+			transitionTime += delta;
 			if (transitionTime >= 0.5) {
 				mainFSM.setState(TUTORIAL);
 			}
@@ -105,7 +100,7 @@ const mainFSM = new FSM({
 		enter () {
 			showTutorial();
 
-			const puzzle = new Puzzle(6, [
+			let puzzle = new Puzzle(6, [
 				{ center: new Vector2(1, 0.5), spaces: [] },
 				{ center: new Vector2(2, 1.5), spaces: [] },
 				{ center: new Vector2(4, 0.5), spaces: [] },
@@ -128,7 +123,7 @@ const mainFSM = new FSM({
 
 	[PUZZLE_FADE_IN]: {
 		enter () {
-			const puzzle = new PuzzleGenerator(puzzleSettings).generate();
+			let puzzle = new PuzzleGenerator(puzzleSettings).generate();
 			setCurrentPuzzle(puzzle);
 			renderer = new PuzzleRenderer();
 			// toggleUndo(false);
@@ -205,8 +200,6 @@ function render () {
 	}
 	fg.render();
 }
-
-let lastTime = 0;
 
 function tick(time) {
 	setDelta(clamp((time - lastTime) / 1000, 0.001, 0.5));

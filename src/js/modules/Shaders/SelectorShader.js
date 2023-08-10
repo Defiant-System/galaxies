@@ -1,13 +1,13 @@
 
-const vertexSelectorShader = `/*glsl*/
+let vertexSelectorShader = `/*glsl*/
 varying vec3 vp;
 void main() {
   vp = ${ATTR_POSITION};
   gl_Position = ${U_PROJECTIONMATRIX} * ${U_VIEWMATRIX} * ${U_MODELMATRIX} * vec4(${ATTR_POSITION}, 1.0);
 }
-`
+`;
 
-const fragmentSelectorShader = `/*glsl*/
+let fragmentSelectorShader = `/*glsl*/
 uniform float ${U_TIME};
 uniform float ${U_VARIANT};
 varying vec3 vp;
@@ -19,6 +19,6 @@ void main() {
   float a = x * y * z;
   gl_FragColor = vec4(1.,1.,1., a * (a + 1.0));
 }
-`
+`;
 
-const SelectorShader = new ShaderProgram(vertexSelectorShader, fragmentSelectorShader)
+let SelectorShader = new ShaderProgram(vertexSelectorShader, fragmentSelectorShader);

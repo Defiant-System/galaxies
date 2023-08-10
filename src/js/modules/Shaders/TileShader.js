@@ -1,5 +1,5 @@
 
-const vertexTileShader = `/*glsl*/
+let vertexTileShader = `/*glsl*/
 uniform vec2 ${U_SPACE_POS};
 uniform vec2 ${U_WORLD_SIZE};
 varying vec2 vp; // position
@@ -10,9 +10,9 @@ void main() {
   wp = ${ATTR_POSITION}.xy * 0.5 + ${U_SPACE_POS};
   gl_Position = vec4((wp * 2.0) / ${U_WORLD_SIZE} - 1.0, 0.0, 1.0);
 }
-`
+`;
 
-const fragmentTileShader = `/*glsl*/
+let fragmentTileShader = `/*glsl*/
 uniform vec4 ${U_SPACE_CONNECTION};
 uniform vec2 ${U_GALAXY_CENTER};
 uniform vec2 ${U_WORLD_SIZE};
@@ -80,6 +80,6 @@ void main() {
 
   gl_FragColor = vec4(m, g, ${U_COLOR}, ${U_GALAXY_CONNECTION});
 }
-`
+`;
 
-const TileShader = new ShaderProgram(vertexTileShader, fragmentTileShader)
+let TileShader = new ShaderProgram(vertexTileShader, fragmentTileShader);

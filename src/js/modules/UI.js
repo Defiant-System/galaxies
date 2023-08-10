@@ -1,10 +1,10 @@
 
 function getElement (name) {
-	return document.querySelector('.' + name)
+	return document.querySelector("." + name)
 }
 
 function getElements (name) {
-	return document.querySelectorAll('.' + name)
+	return document.querySelectorAll("." + name)
 }
 
 function toggleVisibility (element, show) {
@@ -76,7 +76,7 @@ function bindRestart (callback) {
  * UI controlling functions
  */
 function updateLoader () {
-	loadingScreen.textContent += '.'
+	loadingScreen.textContent += "."
 }
 function toggleUndo (show) {
 	toggleVisibility(undoButton, show)
@@ -110,8 +110,8 @@ function hideCongratulations () {
 }
 
 function updateDifficultyButton () {
-	const edgeless = puzzleSettings.wrapping ? ' Endless' : ''
-	const difficulty = puzzleSettings.difficulty ? 'Ridiculous' : 'Normal'
+	const edgeless = puzzleSettings.wrapping ? " Endless" : ""
+	const difficulty = puzzleSettings.difficulty ? "Ridiculous" : "Normal"
 	difficultyButton.textContent =
 		`${puzzleSettings.size}x${puzzleSettings.size}${edgeless} - ${difficulty}`
 }
@@ -192,8 +192,8 @@ function start () {
 		onSolve()
 	}
 
-	document.addEventListener('keypress', e => {
-		if (e.key === 'z') {
+	document.addEventListener("keypress", e => {
+		if (e.key === "z") {
 			onUndo()
 		}
 	})
@@ -201,12 +201,12 @@ function start () {
 	difficultyModal.onclick = (e) => {
 		if (e.target === difficultyModal) {
 			toggleVisibility(difficultyModal, false)
-		} else if (e.target.dataset['s']) {
-			dirtySettings.size = Number(e.target.dataset['s'])
-		} else if (e.target.dataset['w']) {
-			dirtySettings.wrapping = Number(e.target.dataset['w'])
-		} else if (e.target.dataset['d']) {
-			dirtySettings.difficulty = Number(e.target.dataset['d'])
+		} else if (e.target.dataset["s"]) {
+			dirtySettings.size = Number(e.target.dataset["s"])
+		} else if (e.target.dataset["w"]) {
+			dirtySettings.wrapping = Number(e.target.dataset["w"])
+		} else if (e.target.dataset["d"]) {
+			dirtySettings.difficulty = Number(e.target.dataset["d"])
 		} else if (e.target === difficultyDoneButton) {
 			onDifficultySelect(dirtySettings)
 			toggleVisibility(difficultyModal, false)

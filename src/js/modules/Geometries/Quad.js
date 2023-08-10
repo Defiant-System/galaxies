@@ -10,4 +10,4 @@ const Quad = new Geometry({
 		0, 1, 2,
 		0, 2, 3
 	]
-})
+});

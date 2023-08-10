@@ -1,25 +1,25 @@
 
-let delta
+let delta,
+	currentPuzzle,
+	currentTime,
+	puzzleSettings = {
+		size: 7,
+		difficulty: 0,
+		wrapping: false
+	};
+
 function setDelta (value) {
-	delta = value
+	delta = value;
 }
 
-let currentPuzzle
 function setCurrentPuzzle (puzzle) {
-	currentPuzzle = puzzle
+	currentPuzzle = puzzle;
 }
 
-let currentTime
 function updateTime () {
-	currentTime = performance.now() / 1000
-}
-
-let puzzleSettings = {
-	size: 7,
-	difficulty: 0,
-	wrapping: false
+	currentTime = window.performance.now() / 1000;
 }
 
 function updatePuzzleSettings (settings) {
-	puzzleSettings = settings
+	puzzleSettings = settings;
 }
