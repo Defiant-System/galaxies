@@ -255,6 +255,8 @@ class Selector {
 	}
 
 	resetPuzzle () {
+		this.hasBeenSolved = false;
+
 		let stateBefore = this.getState();
 		currentPuzzle.reset();
 		let stateAfter = this.getState();

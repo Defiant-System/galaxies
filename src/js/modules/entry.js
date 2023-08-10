@@ -32,7 +32,7 @@ let mainFSM = new FSM({
 	[INTRO]: {
 		enter () {
 			let puzzle = new PuzzleGenerator(puzzleSettings).generate();
-			setCurrentPuzzle(puzzle);
+			currentPuzzle = puzzle;
 
 			TheCanvas[0].width = window.innerWidth;
 			TheCanvas[0].height = window.innerHeight;
@@ -113,7 +113,7 @@ let mainFSM = new FSM({
 			], false);
 			puzzle.setSymmetricallyAt({ x: 0, y: 1 }, 1);
 			puzzle.setSymmetricallyAt({ x: 1, y: 2 }, 1);
-			setCurrentPuzzle(puzzle);
+			currentPuzzle = puzzle;
 			renderer = new PuzzleRenderer();
 			selector = new Selector();
 			TheCamera.reset();
@@ -124,7 +124,7 @@ let mainFSM = new FSM({
 	[PUZZLE_FADE_IN]: {
 		enter () {
 			let puzzle = new PuzzleGenerator(puzzleSettings).generate();
-			setCurrentPuzzle(puzzle);
+			currentPuzzle = puzzle;
 			renderer = new PuzzleRenderer();
 			// toggleUndo(false);
 			TheCamera.reset();
@@ -169,11 +169,21 @@ let mainFSM = new FSM({
 	}
 }, INTRO);
 
+
+mainFSM.isPaused = false
+
+
 /**
  * Game loop stuff
  */
-
-mainFSM.isPaused = false
+let delta,
+	currentPuzzle,
+	currentTime,
+	puzzleSettings = {
+		size: 5,
+		difficulty: 0,
+		wrapping: false
+	};
 
 function step () {
 	mainFSM.updateFSM();
@@ -205,8 +215,8 @@ function render () {
 function tick(time) {
 	if (mainFSM.isPaused) return;
 
-	setDelta(clamp((time - lastTime) / 1000, 0.001, 0.5));
-	updateTime();
+	delta = clamp((time - lastTime) / 1000, 0.001, 0.5);
+	currentTime = window.performance.now() / 1000;
 	lastTime = time;
 
 	if (!isNaN(delta)) {

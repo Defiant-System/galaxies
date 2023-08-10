@@ -1,5 +1,6 @@
 
 let FOVY = 0.5;
+let TheCamera;
 let TheCanvas = window.find(".canvas");
 let gl = TheCanvas[0].getContext("webgl");
 gl.enable(gl.CULL_FACE);
@@ -45,7 +46,6 @@ gl.enableVertexAttribArray(0);
 @import "./modules/Assets.js"
 @import "./modules/Audio.js"
 @import "./modules/entry.js"
-@import "./modules/globals.js"
 @import "./modules/Input.js"
 @import "./modules/StarFieldGenerator.js"
 @import "./modules/utils.js"
@@ -53,14 +53,14 @@ gl.enableVertexAttribArray(0);
 @import "./modules/test.js"
 
 
-let TheCamera = new Camera();
-
-
 
 const galaxies = {
 	init() {
 		// fast references
 		this.content = window.find("content");
+
+		// create camera
+		TheCamera = new Camera();
 
 		// DEV-ONLY-START
 		Test.init(this);
@@ -72,6 +72,9 @@ const galaxies = {
 		switch (event.type) {
 			case "window.init":
 				break;
+			// case "window.blur":
+			// case "window.focus":
+			// 	break;
 			case "restart-level":
 				selector.resetPuzzle();
 				// reset view
@@ -119,7 +122,6 @@ const galaxies = {
 				// return state value
 				return value;
 			case "puzzle-solved":
-				// selector.fsm.setState(DEFAULT_STATE);
 				// show fireworks
 				Self.content.addClass("show-success");
 				break;

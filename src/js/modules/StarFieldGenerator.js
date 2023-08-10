@@ -1,5 +1,5 @@
 
-async function generateStarField () {
+async function generateStarField() {
 	const SIZE = 512;
 	const canvas = await generateImage(SIZE, SIZE, (ctx) => {
 		const imageData = ctx.getImageData(0, 0, SIZE, SIZE);
