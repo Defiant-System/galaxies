@@ -1,11 +1,11 @@
 
 class StarsLayer {
 	constructor (z) {
-		this.z = z
+		this.z = z;
 	}
 
 	render () {
-		const m = new Matrix4([
+		let m = new Matrix4([
 			50, 0, 0, 0,
 			0, 50, 0, 0,
 			0, 0, 1, 0,

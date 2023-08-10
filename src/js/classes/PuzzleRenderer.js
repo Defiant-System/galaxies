@@ -14,67 +14,66 @@ function getValueFromColorId (id) {
 
 class PuzzleRenderer {
 	constructor () {
-		this.mask = new RenderTarget(1024, 1024)
-		this.fadeSpeed = 0.5
-		this.fadeT = 0
-		this.grid = new Grid()
+		this.mask = new RenderTarget(1024, 1024);
+		this.fadeSpeed = 0.5;
+		this.fadeT = 0;
+		this.grid = new Grid();
 	}
 
 	handleCancel () {
-		this.fadeSpeed = -2
+		this.fadeSpeed = -2;
 	}
 
 	renderMask () {
-		this.mask.bind()
-		gl.viewport(0, 0, 1024, 1024)
-		gl.clearColor(0, 0, 0, 1)
-		gl.clear(gl.DEPTH_BUFFER_BIT | gl.COLOR_BUFFER_BIT)
-		gl.blendFunc(gl.ONE, gl.ZERO)
+		this.mask.bind();
+		gl.viewport(0, 0, 1024, 1024);
+		gl.clearColor(0, 0, 0, 1);
+		gl.clear(gl.DEPTH_BUFFER_BIT | gl.COLOR_BUFFER_BIT);
+		gl.blendFunc(gl.ONE, gl.ZERO);
 		for (let space of currentPuzzle.grid) {
-			if (space.id < 0) continue
-			this.renderSpaceMask(space)
+			if (space.id < 0) continue;
+			this.renderSpaceMask(space);
 		}
-		gl.enable(gl.DEPTH_TEST)
-		RenderTarget.unbind()
+		gl.enable(gl.DEPTH_TEST);
+		RenderTarget.unbind();
 	}
 
 	step () {
-		this.fadeT = Math.min(1, this.fadeT + delta * this.fadeSpeed)
-		this.fadeAmount = smoothstep(1, 0, this.fadeT)
+		this.fadeT = Math.min(1, this.fadeT + delta * this.fadeSpeed);
+		this.fadeAmount = smoothstep(1, 0, this.fadeT);
 	}
 
 	render () {
-		this.grid.render(this.fadeAmount)
+		this.grid.render(this.fadeAmount);
 
-		const { size } = currentPuzzle
-		this.renderMask()
-		gl.viewport(0, 0, TheCanvas[0].width, TheCanvas[0].height)
-		gl.disable(gl.DEPTH_TEST)
-		gl.blendFunc(gl.ONE, gl.ONE)
+		const { size } = currentPuzzle;
+		this.renderMask();
+		gl.viewport(0, 0, TheCanvas[0].width, TheCanvas[0].height);
+		gl.disable(gl.DEPTH_TEST);
+		gl.blendFunc(gl.ONE, gl.ONE);
 
 		PuzzleShader.use({
 			[U_TEXTURE]: { slot: 0, texture: this.mask },
 			[U_TEXTURE_STARS]: { slot: 1, texture: StarFieldTexture },
 			[U_FADE_AMOUNT]: this.fadeAmount,
 			[U_TIME]: currentTime
-		})
+		});
 
 		const modelMatrix = new Matrix4([
 			size, 0, 0, 0,
 			0, size, 0, 0,
 			0, 0, 1, 0,
 			0, 0, 0, 1
-		])
-		const currentSpacePos = TheCamera.getRayGridIntersection(TheCanvas[0].width / 2, TheCanvas[0].height / 2)
+		]);
 
-		currentSpacePos.x = Math.floor((currentSpacePos.x + 1) / (size * 2))
-		currentSpacePos.y = Math.floor((currentSpacePos.y + 1) / (size * 2))
+		const currentSpacePos = TheCamera.getRayGridIntersection(TheCanvas[0].width / 2, TheCanvas[0].height / 2);
+		currentSpacePos.x = Math.floor((currentSpacePos.x + 1) / (size * 2));
+		currentSpacePos.y = Math.floor((currentSpacePos.y + 1) / (size * 2));
 
-		const marginH = currentPuzzle.wrapping ? 3 : 0
-		const marginV = currentPuzzle.wrapping ? 2 : 0
-
-		const offX = (size - 1) / 2
-		const offY = (size - 1) / 2
+		const marginH = currentPuzzle.wrapping ? 3 : 0;
+		const marginV = currentPuzzle.wrapping ? 2 : 0;
+		const offX = (size - 1) / 2;
+		const offY = (size - 1) / 2;
 
 		for (let x = -marginH; x <= marginH; x++) {
 			for (let y = -marginV; y <= marginV; y++) {
@@ -86,12 +85,12 @@ class PuzzleRenderer {
 							-0.5
 						)
 					),
-				})
-				Quad.draw()
+				});
+				Quad.draw();
 			}
 		}
 
-		gl.enable(gl.DEPTH_TEST)
+		gl.enable(gl.DEPTH_TEST);
 	}
 
 	renderSpaceMask (space) {
@@ -104,7 +103,8 @@ class PuzzleRenderer {
 			[U_SPACE_CONNECTION]: currentPuzzle.getShaderConnectionData(space),
 			[U_GALAXY_CONNECTION]: currentPuzzle.isSpaceConnectedToCenter(space),
 			[U_TIME]: currentTime
-		})
-		Quad.draw()
+		});
+		
+		Quad.draw();
 	}
 }

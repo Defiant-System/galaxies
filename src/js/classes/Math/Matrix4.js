@@ -1,118 +1,116 @@
 
-const identity = [
+let identity = [
 	1,0,0,0,
 	0,1,0,0,
 	0,0,1,0,
 	0,0,0,1
-]
+];
 
-const _x = new Vector3()
-const _y = new Vector3()
-const _z = new Vector3()
+let _x = new Vector3();
+let _y = new Vector3();
+let _z = new Vector3();
 
 class Matrix4 {
 	constructor (els = identity) {
-		this.els = new Float32Array(els)
+		this.els = new Float32Array(els);
 	}
 
 	clone () {
-		return new Matrix4(this.els)
+		return new Matrix4(this.els);
 	}
 
 	setTranslation (v) {
-		this.els[12] = v.x
-		this.els[13] = v.y
-		this.els[14] = v.z
-		return this
+		this.els[12] = v.x;
+		this.els[13] = v.y;
+		this.els[14] = v.z;
+		return this;
 	}
 
 	getTranslation (target) {
-		target.x = this.els[12]
-		target.y = this.els[13]
-		target.z = this.els[14]
-		return target
+		target.x = this.els[12];
+		target.y = this.els[13];
+		target.z = this.els[14];
+		return target;
 	}
 
 	set3x3 (a, b, c, d, e, f, g, h, i) {
-		const els = this.els
-		els[0] = a
-		els[1] = d
-		els[2] = g
+		let els = this.els;
+		els[0] = a;
+		els[1] = d;
+		els[2] = g;
 
-		els[4] = b
-		els[5] = e
-		els[6] = h
+		els[4] = b;
+		els[5] = e;
+		els[6] = h;
 
-		els[8] = c
-		els[9] = f
-		els[10] = i
+		els[8] = c;
+		els[9] = f;
+		els[10] = i;
 
-		return this
+		return this;
 	}
 
 	setRotateX (theta) {
-		const c = Math.cos(theta), s = Math.sin(theta)
+		let c = Math.cos(theta), s = Math.sin(theta);
 
 		this.set3x3(
 			1, 0, 0,
 			0, c, -s,
 			0, s, c
-		)
+		);
 
-		return this
+		return this;
 	}
 
 	setRotateY (theta) {
-		const c = Math.cos(theta), s = Math.sin(theta)
+		let c = Math.cos(theta), s = Math.sin(theta);
 
 		this.set3x3(
 			c, 0, s,
 			0, 1, 0,
 			-s, 0, c
-		)
+		);
 
-		return this
+		return this;
 	}
 
 	setRotateZ (theta) {
-		const c = Math.cos(theta), s = Math.sin(theta)
+		let c = Math.cos(theta), s = Math.sin(theta);
 
 		this.set3x3(
 			c, -s, 0,
 			s, c, 0,
 			0, 0, 1
-		)
+		);
 
-		return this
+		return this;
 	}
 
 	lookAt (eye, target, up) {
-		_z.subVectors(eye, target)
-		_z.normalize()
-		_x.crossVectors(up, _z)
-		_x.normalize()
-		_y.crossVectors(_z, _x)
+		_z.subVectors(eye, target);
+		_z.normalize();
+		_x.crossVectors(up, _z);
+		_x.normalize();
+		_y.crossVectors(_z, _x);
 
 		return this.set3x3(
 			_x.x, _y.x, _z.x,
 			_x.y, _y.y, _z.y,
 			_x.z, _y.z, _z.z
-		)
+		);
 	}
 
 	multiplyMatrices (a, b) {
-		const ae = a.els
-		const be = b.els
-
-		const a11 = ae[0], a12 = ae[4], a13 = ae[ 8], a14 = ae[12]
-		const a21 = ae[1], a22 = ae[5], a23 = ae[ 9], a24 = ae[13]
-		const a31 = ae[2], a32 = ae[6], a33 = ae[10], a34 = ae[14]
-		const a41 = ae[3], a42 = ae[7], a43 = ae[11], a44 = ae[15]
-
-		const b11 = be[0], b12 = be[4], b13 = be[ 8], b14 = be[12]
-		const b21 = be[1], b22 = be[5], b23 = be[ 9], b24 = be[13]
-		const b31 = be[2], b32 = be[6], b33 = be[10], b34 = be[14]
-		const b41 = be[3], b42 = be[7], b43 = be[11], b44 = be[15]
+		let ae = a.els,
+			be = b.els,
+			a11 = ae[0], a12 = ae[4], a13 = ae[ 8], a14 = ae[12],
+			a21 = ae[1], a22 = ae[5], a23 = ae[ 9], a24 = ae[13],
+			a31 = ae[2], a32 = ae[6], a33 = ae[10], a34 = ae[14],
+			a41 = ae[3], a42 = ae[7], a43 = ae[11], a44 = ae[15],
+			b11 = be[0], b12 = be[4], b13 = be[ 8], b14 = be[12],
+			b21 = be[1], b22 = be[5], b23 = be[ 9], b24 = be[13],
+			b31 = be[2], b32 = be[6], b33 = be[10], b34 = be[14],
+			b41 = be[3], b42 = be[7], b43 = be[11], b44 = be[15];
 
 		this.els.set([
 			a11 * b11 + a12 * b21 + a13 * b31 + a14 * b41,
@@ -134,32 +132,30 @@ class Matrix4 {
 			a21 * b14 + a22 * b24 + a23 * b34 + a24 * b44,
 			a31 * b14 + a32 * b24 + a33 * b34 + a34 * b44,
 			a41 * b14 + a42 * b24 + a43 * b34 + a44 * b44
-		])
-		return this
+		]);
+
+		return this;
 	}
 
 	getInverse (mat) {
-		const e = mat.els
-
-		let a00 = e[ 0], a01 = e[ 1], a02 = e[ 2], a03 = e[ 3]
-		let a10 = e[ 4], a11 = e[ 5], a12 = e[ 6], a13 = e[ 7]
-		let a20 = e[ 8], a21 = e[ 9], a22 = e[10], a23 = e[11]
-		let a30 = e[12], a31 = e[13], a32 = e[14], a33 = e[15]
-
-		let b00 = a00 * a11 - a01 * a10
-		let b01 = a00 * a12 - a02 * a10
-		let b02 = a00 * a13 - a03 * a10
-		let b03 = a01 * a12 - a02 * a11
-		let b04 = a01 * a13 - a03 * a11
-		let b05 = a02 * a13 - a03 * a12
-		let b06 = a20 * a31 - a21 * a30
-		let b07 = a20 * a32 - a22 * a30
-		let b08 = a20 * a33 - a23 * a30
-		let b09 = a21 * a32 - a22 * a31
-		let b10 = a21 * a33 - a23 * a31
-		let b11 = a22 * a33 - a23 * a32
-
-		let det = 1 / (b00 * b11 - b01 * b10 + b02 * b09 + b03 * b08 - b04 * b07 + b05 * b06);
+		let e = mat.els,
+			a00 = e[ 0], a01 = e[ 1], a02 = e[ 2], a03 = e[ 3],
+			a10 = e[ 4], a11 = e[ 5], a12 = e[ 6], a13 = e[ 7],
+			a20 = e[ 8], a21 = e[ 9], a22 = e[10], a23 = e[11],
+			a30 = e[12], a31 = e[13], a32 = e[14], a33 = e[15],
+			b00 = a00 * a11 - a01 * a10,
+			b01 = a00 * a12 - a02 * a10,
+			b02 = a00 * a13 - a03 * a10,
+			b03 = a01 * a12 - a02 * a11,
+			b04 = a01 * a13 - a03 * a11,
+			b05 = a02 * a13 - a03 * a12,
+			b06 = a20 * a31 - a21 * a30,
+			b07 = a20 * a32 - a22 * a30,
+			b08 = a20 * a33 - a23 * a30,
+			b09 = a21 * a32 - a22 * a31,
+			b10 = a21 * a33 - a23 * a31,
+			b11 = a22 * a33 - a23 * a32,
+			det = 1 / (b00 * b11 - b01 * b10 + b02 * b09 + b03 * b08 - b04 * b07 + b05 * b06);
 
 		this.els.set([
 			(a11 * b11 - a12 * b10 + a13 * b09) * det,
@@ -178,20 +174,20 @@ class Matrix4 {
 			(a00 * b09 - a01 * b07 + a02 * b06) * det,
 			(a31 * b01 - a30 * b03 - a32 * b00) * det,
 			(a20 * b03 - a21 * b01 + a22 * b00) * det
-		])
+		]);
 	}
 
 	fromPerspective (fovY, aspect, near, far) {
-		const f = 1 / Math.tan(fovY / 2)
-		const nf = 1 / (near - far)
+		let f = 1 / Math.tan(fovY / 2);
+		let nf = 1 / (near - far);
 
 		this.els.set([
 			f / aspect, 0, 0, 0,
 			0, f, 0, 0,
 			0, 0, (far + near) * nf, -1,
 			0, 0, 2 * far * near * nf, 0
-		])
+		]);
 
-		return this
+		return this;
 	}
 }

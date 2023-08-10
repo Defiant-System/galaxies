@@ -20,14 +20,14 @@ function createShader (type, source) {
 class ShaderProgram {
 	constructor (vertexSource, fragmentSource) {
 
-		const vertexShaderHeader = `/*glsl*/
+		let vertexShaderHeader = `/*glsl*/
 attribute vec3 ${ATTR_POSITION};
 uniform mat4 ${U_MODELMATRIX};
 uniform mat4 ${U_VIEWMATRIX};
 uniform mat4 ${U_PROJECTIONMATRIX};
 `;
 
-const fragmentShaderHeader = `/*glsl*/
+let fragmentShaderHeader = `/*glsl*/
 precision highp float;
 ${common}
 `;
@@ -53,25 +53,19 @@ ${common}
 
 	use (uniforms = {}) {
 		currentProgram = this.program;
-
 		uniforms[U_PROJECTIONMATRIX] = TheCamera.projectionMatrix;
 		uniforms[U_VIEWMATRIX] = TheCamera.viewMatrix;
 
 		gl.useProgram(this.program);
 		for (let uniformName in uniforms) {
-			const location = this.uniformLocations[uniformName];
-			if (uniforms[uniformName] instanceof Vector3) {
-				gl.uniform3fv(location, uniforms[uniformName].array());
-			} else if (uniforms[uniformName] instanceof Vector2) {
-				gl.uniform2fv(location, uniforms[uniformName].array());
-			} else if (uniforms[uniformName] instanceof Vector4) {
-				gl.uniform4fv(location, uniforms[uniformName].array());
-			} else if (uniforms[uniformName] instanceof Matrix3) {
-				gl.uniformMatrix3fv(location, false, uniforms[uniformName].els);
-			} else if (uniforms[uniformName] instanceof Matrix4) {
-				gl.uniformMatrix4fv(location, false, uniforms[uniformName].els);
-			} else if (uniforms[uniformName].texture) {
-				const slot = uniforms[uniformName].slot || 0;
+			let location = this.uniformLocations[uniformName];
+			if (uniforms[uniformName] instanceof Vector3) gl.uniform3fv(location, uniforms[uniformName].array());
+			else if (uniforms[uniformName] instanceof Vector2) gl.uniform2fv(location, uniforms[uniformName].array());
+			else if (uniforms[uniformName] instanceof Vector4) gl.uniform4fv(location, uniforms[uniformName].array());
+			else if (uniforms[uniformName] instanceof Matrix3) gl.uniformMatrix3fv(location, false, uniforms[uniformName].els);
+			else if (uniforms[uniformName] instanceof Matrix4) gl.uniformMatrix4fv(location, false, uniforms[uniformName].els);
+			else if (uniforms[uniformName].texture) {
+				let slot = uniforms[uniformName].slot || 0;
 				uniforms[uniformName].texture.use(slot);
 				gl.uniform1i(location, slot);
 			} else {

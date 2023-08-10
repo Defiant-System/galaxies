@@ -1,32 +1,31 @@
 
-let MainSong
-let VictorySong
-let ErrorSound
-let PlaceSound
-let LockSound
-
-let StarFieldTexture
+let MainSong;
+let VictorySong;
+let ErrorSound;
+let PlaceSound;
+let LockSound;
+let StarFieldTexture;
 
 function createReverb () {
 	return;
 
-	const reverb = TheAudioContext.createConvolver()
-	reverb.buffer = createAudioBuffer(createReverbIR())
+	const reverb = TheAudioContext.createConvolver();
+	reverb.buffer = createAudioBuffer(createReverbIR());
 
-	setReverbDestination(reverb)
+	setReverbDestination(reverb);
 }
 
 async function loadAssets () {
 	
-	StarFieldTexture = await generateStarField()
+	StarFieldTexture = await generateStarField();
 	return;
 
-	ErrorSound = createAudioBuffer(await createErrorSound())
-	PlaceSound = createAudioBuffer(await createPlaceSound())
-	LockSound = createAudioBuffer(await createLockSound())
+	ErrorSound = createAudioBuffer(await createErrorSound());
+	PlaceSound = createAudioBuffer(await createPlaceSound());
+	LockSound = createAudioBuffer(await createLockSound());
 
-	createReverb()
+	createReverb();
 
-	MainSong = await createMainSong()
-	VictorySong = await createVictorySong()
+	MainSong = await createMainSong();
+	VictorySong = await createVictorySong();
 }
