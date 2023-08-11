@@ -5,7 +5,7 @@ class StarsLayer {
 	}
 
 	render () {
-		let m = new Matrix4([
+		let m1 = new Matrix4([
 			50, 0, 0, 0,
 			0, 50, 0, 0,
 			0, 0, 1, 0,
@@ -14,16 +14,23 @@ class StarsLayer {
 		
 		gl.blendFunc(gl.SRC_ALPHA, gl.ONE_MINUS_SRC_ALPHA);
 
+
+		// let m2 = new Matrix4([
+		// 	1, 0, 0, 0,
+		// 	0, 1, 0, 0,
+		// 	0, 0, 1, 0,
+		// 	0, 0, 0, 1
+		// ]);
 		
-		StarfieldShader.use({
-			[U_TIME]: currentTime,
-			[U_MODELMATRIX]: m
-		});
-		
-		// StarsShader.use({
-		// 	[U_TEXTURE_STARS]: { slot: 0, texture: StarFieldTexture },
-		// 	[U_MODELMATRIX]: m
+		// StarfieldShader.use({
+		// 	[U_TIME]: currentTime,
+		// 	[U_MODELMATRIX]: m2
 		// });
+
+		StarsShader.use({
+			[U_TEXTURE_STARS]: { slot: 0, texture: StarFieldTexture },
+			[U_MODELMATRIX]: m1
+		});
 
 		Quad.draw();
 	}

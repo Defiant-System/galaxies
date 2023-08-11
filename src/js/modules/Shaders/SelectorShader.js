@@ -12,6 +12,7 @@ let fragmentSelectorShader = `/*glsl*/
 uniform float ${U_TIME};
 uniform float ${U_VARIANT};
 varying vec3 vp;
+
 void main() {
   float ts = ${U_TIME} * (${U_VARIANT} + 1.0);
   float x = abs(2.*fract(.5 * vp.x + ts)-1.);

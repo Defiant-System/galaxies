@@ -3,8 +3,8 @@ let vertexStarfieldShader = `/*glsl*/
 varying vec3 vp;
 
 void main() {
-  vp = (${U_MODELMATRIX} * vec4(${ATTR_POSITION}, 1.0)).xyz;
-  gl_Position = ${U_PROJECTIONMATRIX} * ${U_VIEWMATRIX} * ${U_MODELMATRIX} * vec4(${ATTR_POSITION}, 1.0);
+	vp = (${U_MODELMATRIX} * vec4(${ATTR_POSITION}, 1.0)).xyz;
+	gl_Position = ${U_PROJECTIONMATRIX} * ${U_VIEWMATRIX} * ${U_MODELMATRIX} * vec4(${ATTR_POSITION}, 1.0);
 }
 `;
 
@@ -13,67 +13,63 @@ uniform float ${U_TIME};
 varying vec3 vp;
 
 float Star(vec2 uv, float flare) {
-  float StarGlow = 0.0125;
+	float StarGlow = 0.0125;
 
-  float d = length(uv);
-  float m = sin(StarGlow*1.2)/d;  
-  float rays = max(0., .5-abs(uv.x*uv.y*1000.)); 
-  m += (rays*flare)*2.;
-  m *= smoothstep(1., .1, d);
-  return m;
+	float d = length(uv);
+	float m = sin(StarGlow * 1.2) / d;
+	float rays = max(0., .5 - abs(uv.x * uv.y * 1000.)); 
+	m += (rays * flare) * 2.;
+	m *= smoothstep(1., .1, d);
+	return m;
 }
 
 float Hash21(vec2 p) {
-    p = fract(p*vec2(123.34, 456.21));
-    p += dot(p, p+45.32);
-    return fract(p.x*p.y);
+		p = fract(p * vec2(123.34, 456.21));
+		p += dot(p, p + 45.32);
+		return fract(p.x * p.y);
 }
 
 vec3 StarLayer(vec2 uv) {
-  float iTime = ${U_TIME};
-  float TAU = 6.28318;
+	float iTime = ${U_TIME};
+	float TAU = 6.28318;
 
-  vec3 col = vec3(0);
-  vec2 gv = fract(uv);
-  vec2 id = floor(uv);
-  for(int y=-1;y<=1;y++){
-    for(int x=-1; x<=1; x++){
-      vec2 offs = vec2(x,y);
-      float n = Hash21(id+offs);
-      float size = fract(n);
-      float star = Star(gv-offs-vec2(n, fract(n*34.))+.5, smoothstep(.1,.9,size)*.46);
-      vec3 color = sin(vec3(.2,.3,.9)*fract(n*2345.2)*TAU)*.25+.75;
-      color = color*vec3(.9,.59,.9+size);
-      star *= sin(iTime*.6+n*TAU)*.5+.5;
-      col += star*size*color;
-    }
-  }
-  return col;
+	vec3 col = vec3(0);
+	vec2 gv = fract(uv);
+	vec2 id = floor(uv);
+	for(int y=-1;y<=1;y++){
+		for(int x=-1; x<=1; x++){
+			vec2 offs = vec2(x, y);
+			float n = Hash21(id + offs);
+			float size = fract(n);
+			float star = Star(gv - offs - vec2(n, fract(n * 34.)) + .5, smoothstep(.1, .9, size) * .46);
+			vec3 color = sin(vec3(.2, .3, .9) * fract(n * 2345.2) * TAU) * .25 + .75;
+			color = color * vec3(.9, .59, .9 + size);
+			star *= sin(iTime * .6 + n * TAU) * .5 + .5;
+			col += star * size * color;
+		}
+	}
+	return col;
 }
 
 
 void main() {
-  float iTime = ${U_TIME};
-  float CanvasView = 10.;
-  float Velocity = .005;
-  
-  vec2 M = vec2(0);
-  M -= vec2(M.x+sin(iTime*0.22), M.y-cos(iTime*0.22));
-  M +=(vp.xy*.5)/vp.y;
-  float t = iTime*Velocity; 
-  vec3 col2 = vec3(0);  
-  for(float i=0.; i<1.; i+=1./6.) {
-    float depth = fract(i+t);
-    float scale = mix(CanvasView, .5, depth);
-    float fade = depth*smoothstep(1.,.9,depth);
-    col2 += uv*scale+i*453.2-iTime*.05+M;
-  }
-  // gl_FragColor = vec4(col2,1.0);
+	float iTime = ${U_TIME};
+	float CanvasView = 2.;
+	float Velocity = .05;
 
-  // Time varying pixel color
-  vec3 col = 0.5 + 0.5 * cos(iTime + vp.xyx + vec3(0,2,4));
-
-  gl_FragColor = vec4(col,.25);
+	vec2 uv = vp.xy;
+	vec2 M = vec2(0);
+	M -= vec2(M.x + sin(iTime * 0.22), M.y - cos(iTime * 0.22));
+	M += (vp.xy * .5) / vp.y;
+	float t = iTime * Velocity; 
+	vec3 col2 = vec3(0);  
+	for(float i=0.; i<1.; i+=.25) {
+		float depth = fract(i + t);
+		float scale = mix(CanvasView, .5, depth);
+		float fade = depth*smoothstep(1., .9, depth);
+		col2 += StarLayer(uv * scale + i * 453.2 - iTime * .05 + M) * fade;
+	}
+	gl_FragColor = vec4(col2, 1.0);
 }
 `;
 
