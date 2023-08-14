@@ -19,13 +19,13 @@ class StarsLayer {
 		
 		gl.blendFunc(gl.SRC_ALPHA, gl.ONE_MINUS_SRC_ALPHA);
 
+		let { size } = currentPuzzle;
 
 		let m2 = new Matrix4([
-			5, 0, 0, 0,
-			0, 5, 0, 0,
+			size * 1.5, 0, 0, 0,
+			0, size * 1.5, 0, 0,
 			0, 0, 0, 0,
-			// 0, 0, this.z, 1
-			Math.round(TheCamera.x), Math.round(TheCamera.y), this.z, .125
+			Math.round(TheCamera.x), Math.round(TheCamera.y), this.z, size * .0075
 		]);
 		
 		StarfieldShader.use({
