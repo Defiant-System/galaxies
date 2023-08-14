@@ -21,10 +21,11 @@ class StarsLayer {
 
 
 		let m2 = new Matrix4([
-			2, 0, 0, 0,
-			0, 2, 0, 0,
-			0, 0, 1, 0,
-			0, 0, 0, 1
+			5, 0, 0, 0,
+			0, 5, 0, 0,
+			0, 0, 0, 0,
+			// 0, 0, this.z, 1
+			Math.round(TheCamera.x), Math.round(TheCamera.y), this.z, .125
 		]);
 		
 		StarfieldShader.use({

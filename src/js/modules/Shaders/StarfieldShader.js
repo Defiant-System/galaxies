@@ -54,10 +54,10 @@ vec3 StarLayer(vec2 uv) {
 
 void main() {
 	float iTime = ${U_TIME};
-	float Velocity = .05;
+	float Velocity = .015;
 
 	vec2 M = vec2(0);
-	M -= vec2(M.x + sin(iTime * 0.22), M.y - cos(iTime * 0.22));
+	M -= vec2(M.x + sin(iTime * 0.005), M.y - cos(iTime * 0.005));
 	M += vp.xy;
 	float t = iTime * Velocity; 
 	vec3 col = vec3(0);  

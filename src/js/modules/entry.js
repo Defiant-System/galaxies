@@ -204,7 +204,7 @@ function render () {
 	renderer.render();
 	if (selector) selector.renderPass2();
 	
-	fg.render();
+	// fg.render();
 }
 
 function tick(time) {

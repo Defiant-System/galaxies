@@ -15,7 +15,7 @@ uniform sampler2D ${U_TEXTURE_STARS};
 varying vec3 vp;
 
 void main() {
-  vec4 d = texture2D(${U_TEXTURE_STARS}, vp.xy * 0.211);
+  vec4 d = texture2D(${U_TEXTURE_STARS}, vp.xy * 0.04);
   gl_FragColor = vec4(vec3(1.0), d.r * d.g);
 }
 `;
