@@ -7,10 +7,11 @@
 	</Group>
 	<Group>
 		<Options>
-			<Tool name="New Game" click="new-game"/>
-			<Tool name="New Puzzle" click="new-puzzle"/>
-			<Tool name="Restart" click="restart-level"/>
-			<Tool name="Solve" click="solve-level"/>
+			<Tool name="5x5" click="set-puzzle-size" arg="5"/>
+			<Tool name="7x7" click="set-puzzle-size" arg="7"/>
+			<Tool name="9x9" click="set-puzzle-size" arg="9"/>
+			<Tool name="11x11" click="set-puzzle-size" arg="11"/>
+			<Tool name="13x13" click="set-puzzle-size" arg="13"/>
 		</Options>
 	</Group>
 	<Group width="13%">

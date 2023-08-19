@@ -102,7 +102,7 @@ const galaxies = {
 				puzzleSettings.size = +event.arg;
 				// reset game
 				Self.dispatch({ type: "new-puzzle" });
-				break;
+				return true;
 			case "toggle-endless-game":
 				value = puzzleSettings.wrapping;
 				puzzleSettings.wrapping = !value;
