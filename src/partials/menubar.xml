@@ -32,6 +32,6 @@
 			<Menu name="Ridiculous" click="set-puzzle-difficulty" arg="1" check-group="galaxies-game-difficulty"/>
 		</Menu>
 		<Menu type="divider"/>
-		<Menu name="Endless" click="toggle-endless-game" check-group="galaxies-endless-game"/>
+		<Menu name="Endless" click="toggle-endless-game" check-group="galaxies-endless-game" disabled="1"/>
 	</Menu>
 </MenuBar>

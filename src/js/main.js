@@ -109,6 +109,9 @@ const galaxies = {
 				// reset game
 				Self.dispatch({ type: "new-puzzle" });
 				return value;
+			case "start-game":
+				window.find(`.toolbar-tool_[data-arg="${puzzleSettings.size}"]`).trigger("click");
+				break;
 			case "new-game":
 				// reset view
 				Self.content.removeClass("show-start show-pause show-success");

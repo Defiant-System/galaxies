@@ -25,7 +25,7 @@ class StarsLayer {
 			size * 1.5, 0, 0, 0,
 			0, size * 1.5, 0, 0,
 			0, 0, 0, 0,
-			Math.round(TheCamera.x), Math.round(TheCamera.y), this.z, size * .0075
+			Math.round(TheCamera.x), Math.round(TheCamera.y), this.z, size * .0005
 		]);
 		
 		StarfieldShader.use({
