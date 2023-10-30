@@ -9,7 +9,16 @@ content {
 	left: 0;
 	right: 0;
 	bottom: 0;
+	border-radius: inherit;
 	font-family: BebasNeueRegular, Arial, sans-serif;
+
+	> div {
+		border-radius: inherit;
+
+		canvas {
+			border-radius: inherit;
+		}
+	}
 
 	&.show-start {
 		.view-start {
