@@ -57,7 +57,7 @@ void main() {
 	float Velocity = .015;
 
 	vec2 M = vec2(0);
-	M -= vec2(M.x + sin(iTime * 0.005), M.y - cos(iTime * 0.005));
+	M -= vec2(M.x - sin(iTime * 0.05), M.y + cos(iTime * 0.005));
 	M += vp.xy;
 	float t = iTime * Velocity; 
 	vec3 col = vec3(0);  

@@ -1,5 +1,13 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="0" height="0">
 
+	<defs>
+		<filter id="galaxy-glow" x="-50%" y="-200%" width="200%" height="500%">
+			<feGaussianBlur stdDeviation="5"></feGaussianBlur>
+			<feColorMatrix type="saturate" values="1.2"></feColorMatrix>
+			<feComposite in="SourceGraphic"></feComposite>
+		</filter>
+	</defs>
+
 	<svg id="icon-undo" viewBox="0 0 13 13">
 		<path fill="#333" d="M6.5,1.9C5,1.9,3.6,2.5,2.6,3.5L1,1.9V6h4.1L3.6,4.5c0.7-0.7,1.8-1.2,2.9-1.2c2.3,0,4.1,1.8,4.1,4.1c0,1.2-0.5,2.3-1.4,3.1 l0.9,1c1.1-1,1.9-2.5,1.9-4.1C12,4.3,9.5,1.9,6.5,1.9z"/>
 	</svg>

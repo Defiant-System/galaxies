@@ -10,7 +10,6 @@ content {
 	right: 0;
 	bottom: 0;
 	border-radius: inherit;
-	font-family: BebasNeueRegular, Arial, sans-serif;
 
 	> div {
 		border-radius: inherit;
@@ -68,21 +67,47 @@ content {
 		left: 0;
 		right: 0;
 		bottom: 0;
-		// background: rgba(#000,.5);
-		padding: 121px 0 0 0;
+		padding: 143px 0 0 0;
 		text-align: center;
+		--iGlow: 0;
 
 		h2 {
 			// display: none;
+			font-family: BebasNeueRegular, Arial, sans-serif;
 			font-size: 103px;
 			text-shadow: 0 2px 3px rgba(#000,.5);
 			letter-spacing: 5px;
 			color: rgba(#fff,.5);
-			// color: #aaa;
 			background: #222 -webkit-gradient(linear, left top, right top, from(#222), to(#222), color-stop(0.5, #fff)) 0 0 no-repeat;
 			-webkit-background-size: 150px;
 			-webkit-background-clip: text;
 			-webkit-animation: shine 3s infinite;
+
+			// background: linear-gradient(0deg,
+			// 		hsl( calc( var( --iGlow ) * 1turn), 95%, 65%),
+			// 		hsl( calc( var( --iGlow ) * 1turn + 90deg), 95%, 65%)
+			// 	);
+			// -webkit-background-clip: text;
+			// background-clip: text;
+			// color: transparent;
+			// animation: glowAnim 4s linear infinite;
+		}
+
+		p {
+			font-size: 22px;
+			// font-weight: 700;
+			text-transform: uppercase;
+			line-height: 1.35;
+			margin: 20px 0 0;
+			background: linear-gradient(0deg,
+					hsl( calc( var( --iGlow ) * 1turn), 50%, 65%),
+					hsl( calc( var( --iGlow ) * 1turn + 45deg), 50%, 65%)
+				);
+			-webkit-background-clip: text;
+			background-clip: text;
+			color: transparent;
+			filter: url(#galaxy-glow);
+			animation: glowAnim 4s linear infinite;
 		}
 	}
 
@@ -265,6 +290,17 @@ content {
 	20% { background-position: top left; }
 	90% { background-position: top right; }
 	100% { background-position: 600px; }
+}
+
+
+@property --iGlow {
+	syntax: "<number>";
+	initial-value: 0;
+	inherits: false;
+}
+
+@keyframes glowAnim {
+	to { --iGlow: 1; }
 }
 
 

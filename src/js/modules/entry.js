@@ -41,86 +41,8 @@ let mainFSM = new FSM({
 
 			renderer = new PuzzleRenderer();
 			TheCamera.reset();
-
-			// bindStart(() => {
-			// 	playMusic();
-			// 	mainFSM.setState(PUZZLE_STATE);
-			// });
-
-			// bindTutorial(() => {
-			// 	if (mainFSM.activeState !== TUTORIAL) {
-			// 		playMusic();
-			// 		mainFSM.setState(TUTORIAL_FADE);
-			// 	}
-			// });
-
-			// bindTutorialEnd(() => {
-			// 	mainFSM.setState(PUZZLE_FADE_OUT);
-			// });
-
-			// bindDifficultySelect((settings) => {
-			// 	updatePuzzleSettings(settings);
-			// 	mainFSM.setState(PUZZLE_FADE_OUT);
-			// });
-
-			// bindNewGame(() => {
-			// 	mainFSM.setState(PUZZLE_FADE_OUT);
-			// });
-
-			// bindUndo(() => {
-			// 	if (selector) {
-			// 		selector.undo();
-			// 	}
-			// });
-
-			// bindSolve(() => {
-			// 	if (selector) {
-			// 		selector.solvePuzzle();
-			// 	}
-			// });
-
-			// start();
 		}
 	},
-
-	// [TUTORIAL_FADE]: {
-	// 	enter () {
-	// 		transitionTime = 0;
-	// 		renderer.handleCancel();
-	// 	},
-
-	// 	execute () {
-	// 		transitionTime += delta;
-	// 		if (transitionTime >= 0.5) {
-	// 			mainFSM.setState(TUTORIAL);
-	// 		}
-	// 	}
-	// },
-
-	// [TUTORIAL]: {
-	// 	enter () {
-	// 		showTutorial();
-
-	// 		let puzzle = new Puzzle(6, [
-	// 			{ center: new Vector2(1, 0.5), spaces: [] },
-	// 			{ center: new Vector2(2, 1.5), spaces: [] },
-	// 			{ center: new Vector2(4, 0.5), spaces: [] },
-	// 			{ center: new Vector2(4.5, 2.5), spaces: [] },
-	// 			{ center: new Vector2(0.5, 2.5), spaces: [] },
-	// 			{ center: new Vector2(2, 3.5), spaces: [] },
-	// 			{ center: new Vector2(3.5, 4.5), spaces: [] },
-	// 			{ center: new Vector2(2.5, 5.5), spaces: [] },
-	// 			{ center: new Vector2(5.5, 3), spaces: [] }
-	// 		], false);
-	// 		puzzle.setSymmetricallyAt({ x: 0, y: 1 }, 1);
-	// 		puzzle.setSymmetricallyAt({ x: 1, y: 2 }, 1);
-	// 		currentPuzzle = puzzle;
-	// 		renderer = new PuzzleRenderer();
-	// 		selector = new Selector();
-	// 		TheCamera.reset();
-	// 		TheCamera.y = 2;
-	// 	}
-	// },
 
 	[PUZZLE_FADE_IN]: {
 		enter () {
@@ -180,7 +102,7 @@ let delta,
 		wrapping: false
 	};
 
-function step () {
+function step() {
 	mainFSM.updateFSM();
 
 	TheCamera.step();
@@ -193,7 +115,7 @@ function step () {
 	renderer.step();
 }
 
-function render () {
+function render() {
 	gl.viewport(0, 0, TheCanvas[0].width, TheCanvas[0].height);
 	gl.clearColor(0.02, 0, 0.05, 1);
 	gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT);
