@@ -27,6 +27,7 @@ class StarsLayer {
 			0, 0, 0, 0,
 			Math.round(TheCamera.x), Math.round(TheCamera.y), this.z, size * .0005
 		]);
+
 		
 		StarfieldShader.use({
 			[U_TIME]: currentTime,

@@ -32,7 +32,7 @@ let mainFSM = new FSM({
 	[INTRO]: {
 		enter () {
 			// let puzzle = new PuzzleGenerator(puzzleSettings).generate();
-			let puzzle = new Puzzle(1, [], false);
+			let puzzle = new Puzzle(5, [], false);
 			currentPuzzle = puzzle;
 
 			TheCanvas[0].width = window.innerWidth;
