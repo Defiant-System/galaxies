@@ -126,7 +126,7 @@ class Selector {
 						let spaceAtPointer = currentPuzzle.getSpaceAt(lastCursorPos);
 						if (currentTime >= this.startTimestamp + 0.2 || currentPuzzle.isLockedAt(spaceAtPointer)) {
 							if (currentPuzzle.toggleLockedAt(lastCursorPos)) {
-								// playSample(LockSound);
+								galaxies.audio.play("lock");
 							}
 						} else {
 							this.eraseAt(lastCursorPos);
@@ -293,9 +293,9 @@ class Selector {
 		this.createCursorsAtOppositeOf(pos);
 
 		if (updated) {
-			this.soundToPlay = PlaceSound;
+			this.soundToPlay = "place";
 		} else if (addedCursor && currentPuzzle.getIdAt(pos) !== this.selectedId) {
-			this.soundToPlay = ErrorSound;
+			this.soundToPlay = "error";
 		}
 	}
 
@@ -304,9 +304,9 @@ class Selector {
 		let addedCursor = this.addCursorAt(pos, -1);
 
 		if (updated) {
-			this.soundToPlay = PlaceSound;
+			this.soundToPlay = "place";
 		} else if (addedCursor && currentPuzzle.getIdAt(pos) !== -1) {
-			this.soundToPlay = ErrorSound;
+			this.soundToPlay = "error";
 		}
 	}
 
@@ -394,16 +394,14 @@ class Selector {
 		this.fsm.updateFSM();
 
 		if (this.soundToPlay) {
-			// playSample(this.soundToPlay);
+			galaxies.audio.play(this.soundToPlay);
 			this.soundToPlay = null;
 		}
 
 		if (!this.hasBeenSolved && currentPuzzle.isSolved()) {
 			this.hasBeenSolved = true;
-			// VictorySong.play()
-			// MainSong.duckForABit()
-			// showCongratulations()
-
+			galaxies.audio.VictorySong.play();
+			galaxies.audio.MainSong.duckForABit();
 			Input.pointerDown = false;
 
 			galaxies.dispatch({ type: "puzzle-solved" });

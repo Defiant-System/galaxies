@@ -1,5 +1,5 @@
 
-(async () => {
+let Sounds = async (APP) => {
 
 	@import "../audio/Context.js"
 	@import "../audio/SoundGeneration.js"
@@ -11,6 +11,7 @@
 	@import "../audio/MusicSamples/Pluck.js"
 
 	@import "../audio/MainSong.js"
+	@import "../audio/VictorySong.js"
 
 	@import "../audio/Samples/Error.js"
 	@import "../audio/Samples/Lock.js"
@@ -28,23 +29,15 @@
 	reverb.buffer = Soundgeneration.createAudioBuffer(createReverbIR());
 	setReverbDestination(reverb);
 
-
-	Bank.MainSong = await createMainSong();
-	// Bank.VictorySong = await createVictorySong();
-
-
-	function play(name) {
-		let source = TheAudioContext.createBufferSource();
-		source.buffer = Bank[name];
-		source.playbackRate.value = Math.pow(2, Soundgeneration.sampleNoise() * 0.1);
-		source.connect(TheAudioDestination);
-		source.start();
-	}
-
-	// Sounds = { play };
-	play("lock");
-
-	setTimeout(() => play("place"), 1000);
-	// Bank.MainSong.play();
-
-})();
+	APP.audio = {
+		MainSong: await createMainSong(),
+		VictorySong: await createVictorySong(),
+		play(name) {
+			let source = TheAudioContext.createBufferSource();
+			source.buffer = Bank[name];
+			source.playbackRate.value = Math.pow(2, Soundgeneration.sampleNoise() * 0.1);
+			source.connect(TheAudioDestination);
+			source.start();
+		}
+	};
+};

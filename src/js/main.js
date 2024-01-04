@@ -63,6 +63,8 @@ const galaxies = {
 
 		// create camera
 		TheCamera = new Camera();
+		// audio / sounds
+		Sounds(this).then(() => this.audio.MainSong.play());
 
 		// DEV-ONLY-START
 		Test.init(this);
