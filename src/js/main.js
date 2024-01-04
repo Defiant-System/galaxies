@@ -73,6 +73,7 @@ const galaxies = {
 	dispatch(event) {
 		let Self = galaxies,
 			value;
+		// console.log(event);
 		switch (event.type) {
 			case "window.init":
 				break;
@@ -85,6 +86,7 @@ const galaxies = {
 				Self.content.removeClass("show-start show-pause show-success");
 				break;
 			case "toggle-music":
+				Self.audio.toggle(Self.audio._playing ? 0 : 1);
 				break;
 			case "solve-level":
 				selector.solvePuzzle();
@@ -112,7 +114,6 @@ const galaxies = {
 				Self.dispatch({ type: "new-puzzle" });
 				return value;
 			case "start-game":
-				console.log( Sounds );
 				window.find(`.toolbar-tool_[data-arg="${puzzleSettings.size}"]`).trigger("click");
 				break;
 			case "new-game":

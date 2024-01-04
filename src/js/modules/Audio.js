@@ -30,14 +30,25 @@ let Sounds = async (APP) => {
 	setReverbDestination(reverb);
 
 	APP.audio = {
+		_playing: true,
 		MainSong: await createMainSong(),
 		VictorySong: await createVictorySong(),
 		play(name) {
+			if (!this._playing) return;
 			let source = TheAudioContext.createBufferSource();
 			source.buffer = Bank[name];
 			source.playbackRate.value = Math.pow(2, Soundgeneration.sampleNoise() * 0.1);
 			source.connect(TheAudioDestination);
 			source.start();
+		},
+		toggle(value) {
+			this._playing = value;
+			this.MainSong._stopped = !value;
+			this.VictorySong._stopped = !value;
+
+			this.MainSong.channels.forEach(channel => {
+				channel.volumeParam.linearRampToValueAtTime(value ? 1 : 0, 0);
+			});
 		}
 	};
 };

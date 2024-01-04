@@ -39,6 +39,7 @@ class Song {
 	}
 
 	duckForABit () {
+		if (this._stopped) return;
 		this.channels.forEach(channel => {
 			channel.volumeParam.linearRampToValueAtTime(0, TheAudioContext.currentTime + 0.02);
 			channel.volumeParam.linearRampToValueAtTime(channel.volume, TheAudioContext.currentTime + 4);
@@ -46,13 +47,14 @@ class Song {
 	}
 
 	play () {
+		if (this._stopped) return;
 		this.playing = true;
 		this.channels.forEach(channel => {
 			if (channel.source) {
 				channel.source.disconnect();
 			}
 
-			const sourceNode = TheAudioContext.createBufferSource();
+			let sourceNode = TheAudioContext.createBufferSource();
 			sourceNode.loop = this.loop;
 			sourceNode.loopEnd = channel.buffer.duration;
 			sourceNode.buffer = channel.buffer;
