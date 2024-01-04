@@ -912,6 +912,17 @@ function createReverbIR () {
 
 
 
+
+let test = async () => {
+	await TheAudioContext.audioWorklet.addModule("/app/ant/galaxies/js/worklets/error-sound.js");
+	let oscillator = new OscillatorNode(TheAudioContext);
+	let bypasser = new AudioWorkletNode(TheAudioContext, "error-sound");
+	oscillator.connect(bypasser).connect(TheAudioContext.destination);
+	oscillator.start();
+	setTimeout(() => TheAudioContext.close(), 500);
+};
+
+
 let Sounds = {
 	_playing: true,
 	async init() {
@@ -927,7 +938,7 @@ let Sounds = {
 		setReverbDestination(reverb);
 
 		// create sound segments
-		this.MainSong = await createMainSong();
+		// this.MainSong = await createMainSong();
 		// this.VictorySong = await createVictorySong();
 
 		// start playing main song
@@ -935,6 +946,8 @@ let Sounds = {
 
 		// this.play("error");
 		// this.VictorySong.play();
+
+		test();
 	},
 	play(name) {
 		if (!this._playing) return;
