@@ -126,7 +126,7 @@ class Selector {
 						let spaceAtPointer = currentPuzzle.getSpaceAt(lastCursorPos);
 						if (currentTime >= this.startTimestamp + 0.2 || currentPuzzle.isLockedAt(spaceAtPointer)) {
 							if (currentPuzzle.toggleLockedAt(lastCursorPos)) {
-								playSample(LockSound);
+								// playSample(LockSound);
 							}
 						} else {
 							this.eraseAt(lastCursorPos);
@@ -394,7 +394,7 @@ class Selector {
 		this.fsm.updateFSM();
 
 		if (this.soundToPlay) {
-			playSample(this.soundToPlay);
+			// playSample(this.soundToPlay);
 			this.soundToPlay = null;
 		}
 

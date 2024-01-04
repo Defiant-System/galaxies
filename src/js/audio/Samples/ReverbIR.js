@@ -1,40 +1,39 @@
-import { applyEnvelope, generateSound, sampleNoise } from '../SoundGeneration.js'
 
-export function createReverbIR () {
-  function createNoisyEnvelope () {
-    let t = 0
-    let result = []
-    do {
-      result.push([t, Math.random()])
+function createReverbIR () {
 
-      t += 0.01
-    } while (t <= 1)
+	function createNoisyEnvelope () {
+		let t = 0;
+		let result = [];
+		do {
+			result.push([t, Math.random()]);
+			t += 0.01;
+		} while (t <= 1);
 
-    return result
-  }
-  const volumeEnvelope1 = createNoisyEnvelope()
-  const volumeEnvelope2 = createNoisyEnvelope()
+		return result;
+	}
 
-  const globalEnvelope = [
-    [0, 0, 0.5],
-    [0.05, 1, 0.5],
-    [1, 0]
-  ]
+	let volumeEnvelope1 = createNoisyEnvelope();
+	let volumeEnvelope2 = createNoisyEnvelope();
+	let globalEnvelope = [
+		[0, 0, 0.5],
+		[0.05, 1, 0.5],
+		[1, 0]
+	];
 
-  return [
-    applyEnvelope(
-      applyEnvelope(
-        generateSound(4, sampleNoise),
-        volumeEnvelope1
-      ),
-      globalEnvelope
-    ),
-    applyEnvelope(
-      applyEnvelope(
-        generateSound(4, sampleNoise),
-        volumeEnvelope2
-      ),
-      globalEnvelope
-    )
-  ]
+	return [
+		Soundgeneration.applyEnvelope(
+			Soundgeneration.applyEnvelope(
+				Soundgeneration.generateSound(4, Soundgeneration.sampleNoise),
+				volumeEnvelope1
+			),
+			globalEnvelope
+		),
+		Soundgeneration.applyEnvelope(
+			Soundgeneration.applyEnvelope(
+				Soundgeneration.generateSound(4, Soundgeneration.sampleNoise),
+				volumeEnvelope2
+			),
+			globalEnvelope
+		)
+	];
 }

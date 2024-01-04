@@ -110,6 +110,7 @@ const galaxies = {
 				Self.dispatch({ type: "new-puzzle" });
 				return value;
 			case "start-game":
+				console.log( Sounds );
 				window.find(`.toolbar-tool_[data-arg="${puzzleSettings.size}"]`).trigger("click");
 				break;
 			case "new-game":

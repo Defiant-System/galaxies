@@ -1,26 +1,17 @@
-import {
-  generateSound,
-  applyEnvelope,
-  getFrequencyDelta,
-  sampleTriangle
-} from '../SoundGeneration.js'
 
-const volumeEnvelope = [
-  [0, 0],
-  [0.0001, 0.1],
-  [0.01, 0.5, 0.3],
-  [0.1, 0.25, 0.5],
-  [1, 0]
-]
+function createPluckSound(frequency, length) {
+	let p = 0,
+		volumeEnvelope = [
+			[0, 0],
+			[0.01, 1, 0.9],
+			[0.999, 0.43],
+			[1, 0]
+		];
 
-export function createPluckSound (frequency) {
+	function getSample(t) {
+		p += Soundgeneration.getFrequencyDelta(frequency);
+		return Soundgeneration.sampleSine(p) + Soundgeneration.sampleSine(p * 2) * 0.21;
+	}
 
-  let p = 0
-
-  function getSample () {
-    p += getFrequencyDelta(frequency)
-    return sampleTriangle(p)
-  }
-
-  return applyEnvelope(generateSound(2, getSample), volumeEnvelope)
+	return Soundgeneration.applyEnvelope(Soundgeneration.generateSound(length, getSample), volumeEnvelope);
 }

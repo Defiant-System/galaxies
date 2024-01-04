@@ -7,5 +7,8 @@ let Test = {
 		// setTimeout(() => APP.dispatch({ type: "pause-game" }), 1500);
 		// setTimeout(() => APP.dispatch({ type: "open-help" }), 100);
 
+
+		// setTimeout(() => Sounds.play("MainSong"), 2500);
+
 	}
 };
