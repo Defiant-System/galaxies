@@ -42,11 +42,8 @@ gl.enableVertexAttribArray(0);
 @import "./modules/Shaders/PuzzleShader.js"
 @import "./modules/Shaders/SelectorShader.js"
 @import "./modules/Shaders/GridShader.js"
-
 @import "./modules/Shaders/StarfieldShader.js"
 
-@import "./modules/Assets.js"
-@import "./modules/Audio.js"
 @import "./modules/entry.js"
 @import "./modules/Input.js"
 @import "./modules/StarFieldGenerator.js"
@@ -54,6 +51,20 @@ gl.enableVertexAttribArray(0);
 
 @import "./modules/test.js"
 
+
+let Sounds;
+window.fetch("~/js/bundle.js").then(res => {
+	Sounds = res.Sounds;
+
+	Sounds.init();
+
+	// let initAudio = () => {
+	// 	// auto init
+	// 	if (StarFieldTexture) Sounds.init();
+	// 	else setTimeout(initAudio, 250);
+	// };
+	// initAudio();
+});
 
 
 const galaxies = {
@@ -63,8 +74,6 @@ const galaxies = {
 
 		// create camera
 		TheCamera = new Camera();
-		// audio / sounds
-		Sounds(this).then(() => this.audio.MainSong.play());
 
 		// DEV-ONLY-START
 		Test.init(this);
@@ -78,7 +87,7 @@ const galaxies = {
 			case "window.init":
 				break;
 			case "window.close":
-				Self.audio.destroy();
+				Sounds.destroy();
 				break;
 			// case "window.blur":
 			// case "window.focus":
@@ -89,7 +98,7 @@ const galaxies = {
 				Self.content.removeClass("show-start show-pause show-success");
 				break;
 			case "toggle-music":
-				Self.audio.toggle(Self.audio._playing ? 0 : 1);
+				Sounds.toggle(Sounds._playing ? 0 : 1);
 				break;
 			case "solve-level":
 				selector.solvePuzzle();

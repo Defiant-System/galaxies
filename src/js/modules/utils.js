@@ -163,7 +163,6 @@ function smoothstep(edge0, edge1, x) {
  */
 async function waitForNextFrame () {
 	// Very hacky, but meh
-	updateLoader();
 	await new Promise(resolve => requestAnimationFrame(resolve));
 }
 

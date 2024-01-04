@@ -21,12 +21,6 @@ let INTRO = 1,
 	TUTORIAL_FADE = 5,
 	TUTORIAL = 6;
 
-async function playMusic () {
-	await TheAudioContext.resume();
-	if (!MainSong.playing) {
-		MainSong.play();
-	}
-}
 
 let mainFSM = new FSM({
 	[INTRO]: {
@@ -145,4 +139,8 @@ function tick(time) {
 	requestAnimationFrame(tick);
 }
 
-loadAssets().then(tick);
+let StarFieldTexture;
+generateStarField().then(texture => {
+	StarFieldTexture = texture;
+	tick();
+});

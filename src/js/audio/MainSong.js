@@ -1,7 +1,7 @@
 
-async function waitForNextFrame() {
-	await new Promise(resolve => requestAnimationFrame(resolve));
-}
+// async function waitForNextFrame() {
+// 	await new Promise(resolve => requestAnimationFrame(resolve));
+// }
 
 async function createMainSong () {
 	async function createBassTrack () {
@@ -23,7 +23,7 @@ async function createMainSong () {
 			[12, -39, 4],
 		], loop2, createBassSound, bpm, true);
 
-		await waitForNextFrame();
+		// await waitForNextFrame();
 
 		let output = SongGeneration.createTempBuffer(trackBeatCount, bpm);
 		output.set(loop, 0);
@@ -54,23 +54,23 @@ async function createMainSong () {
 		let bb_5_9 = createChord([-23, -16, -9]);
 		let f_8_12 = createChord([-28, -16, -9]);
 
-		await waitForNextFrame();
+		// await waitForNextFrame();
 
 		let g_5_9_12 = createChord([-26, -19, -12, -7]);
 		let a_5_8_10 = createChord([-24, -17, -12, -9]);
 
-		await waitForNextFrame();
+		// await waitForNextFrame();
 
 		let bb_5_9_12 = createChord([-23, -16, -9, -4]);
 		let c_5_8_13 = createChord([-21, -14, -9, 0]);
 
-		await waitForNextFrame();
+		// await waitForNextFrame();
 
 		let d_5_10maj = createChord([-19, -12, -3]);
 		let bb_5_10 = createChord([-23, -16, -7]);
 		let gb_8_13a = createChord([-27, -15, -7]);
 
-		await waitForNextFrame();
+		// await waitForNextFrame();
 
 		let bb_5_10_12 = createChord([-23, -16, -7, -4]);
 		let c_5_8_10 = createChord([-21, -14, -9, -5]);
@@ -137,7 +137,7 @@ async function createMainSong () {
 		let offset = SongGeneration.getOffsetForBar(8, bpm);
 		main.set(main.slice(0, offset), offset);
 
-		await waitForNextFrame();
+		// await waitForNextFrame();
 
 		// Then add the notes that are different
 		SongGeneration.addNotes([
@@ -174,7 +174,7 @@ async function createMainSong () {
 			[44, 5],
 		], main, createPluckSound, bpm, true);
 
-		await waitForNextFrame();
+		// await waitForNextFrame();
 
 		let output = SongGeneration.createTempBuffer(trackBeatCount, bpm);
 		output.set(main, SongGeneration.getOffsetForBar(16, bpm));
@@ -182,20 +182,19 @@ async function createMainSong () {
 		return Soundgeneration.createAudioBuffer(output);
 	}
 
-	let measureCount = 32;
 	let bpm = 55;
-	let trackBeatCount = measureCount * 4;
+	let trackBeatCount = 128;
 
 	let bufferBass = await createBassTrack();
-	let bufferPads = await createPadsTrack();
-	let bufferMelody = await createMelodyTrack();
+	// let bufferPads = await createPadsTrack();
+	// let bufferMelody = await createMelodyTrack();
 
-	return new Song(
-		[
-			{ buffer: bufferBass, volume: 0.2 },
-			{ buffer: bufferPads, volume: 0.32, sendToReverb: 2 },
-			{ buffer: bufferMelody, volume: 0.2, sendToReverb: 2 }
-		],
-		true
-	);
+	// return new Song(
+	// 	[
+	// 		{ buffer: bufferBass, volume: 0.2 },
+	// 		{ buffer: bufferPads, volume: 0.32, sendToReverb: 2 },
+	// 		{ buffer: bufferMelody, volume: 0.2, sendToReverb: 2 }
+	// 	],
+	// 	true
+	// );
 }

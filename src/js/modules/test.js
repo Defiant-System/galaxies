@@ -8,7 +8,8 @@ let Test = {
 		// setTimeout(() => APP.dispatch({ type: "open-help" }), 100);
 
 
-		// setTimeout(() => Sounds.play("MainSong"), 2500);
+		// setTimeout(() => Sounds.play("error"), 1500);
+		// setTimeout(() => console.log(Sounds), 1500);
 
 	}
 };
