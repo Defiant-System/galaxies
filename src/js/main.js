@@ -77,6 +77,9 @@ const galaxies = {
 		switch (event.type) {
 			case "window.init":
 				break;
+			case "window.close":
+				Self.audio.destroy();
+				break;
 			// case "window.blur":
 			// case "window.focus":
 			// 	break;

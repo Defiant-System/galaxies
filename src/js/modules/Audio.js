@@ -40,6 +40,8 @@ let Sounds = async (APP) => {
 			source.playbackRate.value = Math.pow(2, Soundgeneration.sampleNoise() * 0.1);
 			source.connect(TheAudioDestination);
 			source.start();
+
+			this._source = source;
 		},
 		toggle(value) {
 			this._playing = value;
@@ -49,6 +51,9 @@ let Sounds = async (APP) => {
 			this.MainSong.channels.forEach(channel => {
 				channel.volumeParam.linearRampToValueAtTime(value ? 1 : 0, 0);
 			});
+		},
+		destroy() {
+			TheAudioContext.close();
 		}
 	};
 };
