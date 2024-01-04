@@ -6,24 +6,26 @@
  * @extends AudioWorkletProcessor
  */
 
-import banan from "./common.js";
+import SoundBank from "./sound-bank.js";
 
 
 class ErrorSound extends AudioWorkletProcessor {
 
-	p = 0
+	constructor() {
+		super();
 
-	volumeEnvelope = [
-		[0, 0],
-		[0.001, 0.5, 0.5],
-		[0.5, 0],
-		[0.501, 0.5, 0.5],
-		[1, 0]
-	]
+		SoundBank.init();
 
-	getSample (t) {
-		// this.p += Soundgeneration.getFrequencyDelta(44);
-		// return Soundgeneration.sampleSawtooth(this.p);
+		this.port.onmessage = this.handleMessage.bind(this);
+	}
+
+	handleMessage(event) {
+		this.sendMessage(event.data);
+	}
+
+	sendMessage(message) {
+		let buffer = SoundBank[message.name];
+		this.port.postMessage({ buffer, contextTimestamp: currentTime });
 	}
 
 	process(inputs, outputs) {
@@ -31,13 +33,11 @@ class ErrorSound extends AudioWorkletProcessor {
 		let input = inputs[0];
 		let output = outputs[0];
 
-		console.log( banan );
+		// for (let channel = 0; channel < output.length; ++channel) {
+		// 	output[channel].set(input[channel]);
+		// }
 
-		for (let channel = 0; channel < output.length; ++channel) {
-			output[channel].set(input[channel]);
-		}
-
-		return true;
+		return;
 	}
 }
 

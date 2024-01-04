@@ -186,15 +186,15 @@ async function createMainSong () {
 	let trackBeatCount = 128;
 
 	let bufferBass = await createBassTrack();
-	// let bufferPads = await createPadsTrack();
-	// let bufferMelody = await createMelodyTrack();
+	let bufferPads = await createPadsTrack();
+	let bufferMelody = await createMelodyTrack();
 
-	// return new Song(
-	// 	[
-	// 		{ buffer: bufferBass, volume: 0.2 },
-	// 		{ buffer: bufferPads, volume: 0.32, sendToReverb: 2 },
-	// 		{ buffer: bufferMelody, volume: 0.2, sendToReverb: 2 }
-	// 	],
-	// 	true
-	// );
+	return new Song(
+		[
+			{ buffer: bufferBass, volume: 0.2 },
+			{ buffer: bufferPads, volume: 0.32, sendToReverb: 2 },
+			{ buffer: bufferMelody, volume: 0.2, sendToReverb: 2 }
+		],
+		true
+	);
 }

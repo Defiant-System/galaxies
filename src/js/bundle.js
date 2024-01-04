@@ -18,43 +18,66 @@
 
 
 
-let test = async () => {
-	await TheAudioContext.audioWorklet.addModule("~/js/worklets/error-sound.js");
-	let oscillator = new OscillatorNode(TheAudioContext);
-	let bypasser = new AudioWorkletNode(TheAudioContext, "error-sound");
-	oscillator.connect(bypasser).connect(TheAudioContext.destination);
-	oscillator.start();
-	setTimeout(() => TheAudioContext.close(), 500);
-};
+class MessengerWorkletNode extends AudioWorkletNode {
+	constructor(context, processor) {
+		super(context, processor);
+		this.port.onmessage = this.handleMessage.bind(this);
+		console.log("[Node:constructor] created.");
+	}
+
+	sendMessage(name) {
+		let contextTimestamp = this.context.currentTime;
+		this.port.postMessage({ name, contextTimestamp });
+	}
+
+	handleMessage(event) {
+		// console.log(`[Node:handleMessage] ${data.message} (${data.contextTimestamp})`);
+		// console.log(`[Node] (${data.contextTimestamp})`, data.buffer);
+
+		let soundBuffer = Soundgeneration.createAudioBuffer(event.data.buffer);
+		let source = TheAudioContext.createBufferSource();
+		source.buffer = soundBuffer;
+		source.playbackRate.value = Math.pow(2, Soundgeneration.sampleNoise() * 0.1);
+		source.connect(TheAudioDestination);
+		source.start();
+	}
+}
 
 
 let Sounds = {
 	_playing: true,
 	async init() {
-		this.bank = {
-			error: Soundgeneration.createAudioBuffer(await createErrorSound()),
-			place: Soundgeneration.createAudioBuffer(await createPlaceSound()),
-			lock: Soundgeneration.createAudioBuffer(await createLockSound()),
-		};
+		// this.bank = {
+		// 	error: Soundgeneration.createAudioBuffer(await createErrorSound()),
+		// 	place: Soundgeneration.createAudioBuffer(await createPlaceSound()),
+		// 	lock: Soundgeneration.createAudioBuffer(await createLockSound()),
+		// };
 
+		// console.log( "bank", this.bank.error );
+		/*
 		// createReverb
 		let reverb = TheAudioContext.createConvolver();
 		reverb.buffer = Soundgeneration.createAudioBuffer(createReverbIR());
 		setReverbDestination(reverb);
 
 		// create sound segments
-		// this.MainSong = await createMainSong();
-		// this.VictorySong = await createVictorySong();
+		this.MainSong = await createMainSong();
+		this.VictorySong = await createVictorySong();
 
 		// start playing main song
-		// this.MainSong.play();
+		this.MainSong.play();
 
 		// this.play("error");
 		// this.VictorySong.play();
+		*/
 
-		test();
+		await TheAudioContext.audioWorklet.addModule("~/js/worklets/error-sound.js");
+		this.messengerWorkletNode = new MessengerWorkletNode(TheAudioContext, "error-sound");
 	},
 	play(name) {
+		this.messengerWorkletNode.sendMessage(name);
+	},
+	play2(name) {
 		if (!this._playing) return;
 		let source = TheAudioContext.createBufferSource();
 		source.buffer = this.bank[name];
