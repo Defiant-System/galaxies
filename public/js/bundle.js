@@ -13,40 +13,6 @@ function setReverbDestination (reverb) {
 	reverb.connect(TheAudioDestination);
 }
 
-/**
- * Animation and audio utils
- */
-class EnvelopeSampler {
-	constructor (envelope, logarithmic = false) {
-		this.envelope = envelope;
-		this.logarithmic = logarithmic;
-		this.reset();
-	}
-
-	reset () {
-		this.i = 0;
-	}
-	
-	sample (position) {
-		while (this.i < this.envelope.length - 1) {
-			let [t1, v1, curve = 1] = this.envelope[this.i];
-			let [t2, v2] = this.envelope[this.i + 1];
-			if (t1 <= position && position < t2) {
-				let t = (position - t1) / (t2 - t1);
-				if (curve > 1) {
-					t = t ** curve;
-				} else {
-					t = 1 - (1 - t) ** (1 / curve);
-				}
-				return this.logarithmic ? v1 * (v2 / v1) ** t : v1 + t * (v2 - v1);
-			}
-			this.i++;
-		}
-		return this.envelope[this.envelope.length - 1][1];
-	}
-}
-
-
 
 let Soundgeneration = {
 	createAudioBuffer(array) {
@@ -913,7 +879,7 @@ function createReverbIR () {
 
 
 
-class MessengerWorkletNode extends AudioWorkletNode {
+class FxAPI extends AudioWorkletNode {
 	constructor(context, processor) {
 		super(context, processor);
 		this.port.onmessage = this.handleMessage.bind(this);
@@ -926,9 +892,6 @@ class MessengerWorkletNode extends AudioWorkletNode {
 	}
 
 	handleMessage(event) {
-		// console.log(`[Node:handleMessage] ${data.message} (${data.contextTimestamp})`);
-		// console.log(`[Node] (${data.contextTimestamp})`, data.buffer);
-
 		let soundBuffer = Soundgeneration.createAudioBuffer(event.data.buffer);
 		let source = TheAudioContext.createBufferSource();
 		source.buffer = soundBuffer;
@@ -966,21 +929,11 @@ let Sounds = {
 		// this.VictorySong.play();
 		*/
 
-		await TheAudioContext.audioWorklet.addModule("/app/ant/galaxies/js/worklets/error-sound.js");
-		this.messengerWorkletNode = new MessengerWorkletNode(TheAudioContext, "error-sound");
+		await TheAudioContext.audioWorklet.addModule("/app/ant/galaxies/js/worklets/sound-fx-worklet.js");
+		this.fxAPI = new FxAPI(TheAudioContext, "sound-fx-worklet");
 	},
 	play(name) {
-		this.messengerWorkletNode.sendMessage(name);
-	},
-	play2(name) {
-		if (!this._playing) return;
-		let source = TheAudioContext.createBufferSource();
-		source.buffer = this.bank[name];
-		source.playbackRate.value = Math.pow(2, Soundgeneration.sampleNoise() * 0.1);
-		source.connect(TheAudioDestination);
-		source.start();
-
-		this._source = source;
+		this.fxAPI.sendMessage(name);
 	},
 	toggle(value) {
 		this._playing = value;
@@ -997,6 +950,4 @@ let Sounds = {
 };
 
 
-module.exports = {
-	Sounds,
-};
+module.exports = { Sounds };

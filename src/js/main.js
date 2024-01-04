@@ -44,27 +44,12 @@ gl.enableVertexAttribArray(0);
 @import "./modules/Shaders/GridShader.js"
 @import "./modules/Shaders/StarfieldShader.js"
 
+@import "./modules/sounds.js"
 @import "./modules/entry.js"
 @import "./modules/Input.js"
 @import "./modules/StarFieldGenerator.js"
 @import "./modules/utils.js"
-
 @import "./modules/test.js"
-
-
-let Sounds;
-window.fetch("~/js/bundle.js").then(res => {
-	Sounds = res.Sounds;
-
-	Sounds.init();
-
-	// let initAudio = () => {
-	// 	// auto init
-	// 	if (StarFieldTexture) Sounds.init();
-	// 	else setTimeout(initAudio, 250);
-	// };
-	// initAudio();
-});
 
 
 const galaxies = {

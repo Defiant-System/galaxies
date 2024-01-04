@@ -1,21 +1,12 @@
 
-/**
- * A simple error sound node demo.
- *
- * @class ErrorSound
- * @extends AudioWorkletProcessor
- */
 
 import SoundBank from "./sound-bank.js";
 
 
-class ErrorSound extends AudioWorkletProcessor {
-
+class SoundFxWorklet extends AudioWorkletProcessor {
 	constructor() {
 		super();
-
 		SoundBank.init();
-
 		this.port.onmessage = this.handleMessage.bind(this);
 	}
 
@@ -29,16 +20,13 @@ class ErrorSound extends AudioWorkletProcessor {
 	}
 
 	process(inputs, outputs) {
-		// By default, the node has single input and output.
 		let input = inputs[0];
 		let output = outputs[0];
-
 		// for (let channel = 0; channel < output.length; ++channel) {
 		// 	output[channel].set(input[channel]);
 		// }
-
 		return;
 	}
 }
 
-registerProcessor("error-sound", ErrorSound);
+registerProcessor("sound-fx-worklet", SoundFxWorklet);

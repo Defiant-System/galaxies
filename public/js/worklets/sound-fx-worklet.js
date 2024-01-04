@@ -3,8 +3,7 @@
 import SoundBank from "./sound-bank.js";
 
 
-class ErrorSound extends AudioWorkletProcessor {
-
+class SoundFxWorklet extends AudioWorkletProcessor {
 	constructor() {
 		super();
 		SoundBank.init();
@@ -30,4 +29,4 @@ class ErrorSound extends AudioWorkletProcessor {
 	}
 }
 
-registerProcessor("error-sound", ErrorSound);
+registerProcessor("sound-fx-worklet", SoundFxWorklet);

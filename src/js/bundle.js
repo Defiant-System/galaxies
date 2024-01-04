@@ -18,7 +18,7 @@
 
 
 
-class MessengerWorkletNode extends AudioWorkletNode {
+class FxAPI extends AudioWorkletNode {
 	constructor(context, processor) {
 		super(context, processor);
 		this.port.onmessage = this.handleMessage.bind(this);
@@ -31,9 +31,6 @@ class MessengerWorkletNode extends AudioWorkletNode {
 	}
 
 	handleMessage(event) {
-		// console.log(`[Node:handleMessage] ${data.message} (${data.contextTimestamp})`);
-		// console.log(`[Node] (${data.contextTimestamp})`, data.buffer);
-
 		let soundBuffer = Soundgeneration.createAudioBuffer(event.data.buffer);
 		let source = TheAudioContext.createBufferSource();
 		source.buffer = soundBuffer;
@@ -71,21 +68,11 @@ let Sounds = {
 		// this.VictorySong.play();
 		*/
 
-		await TheAudioContext.audioWorklet.addModule("~/js/worklets/error-sound.js");
-		this.messengerWorkletNode = new MessengerWorkletNode(TheAudioContext, "error-sound");
+		await TheAudioContext.audioWorklet.addModule("~/js/worklets/sound-fx-worklet.js");
+		this.fxAPI = new FxAPI(TheAudioContext, "sound-fx-worklet");
 	},
 	play(name) {
-		this.messengerWorkletNode.sendMessage(name);
-	},
-	play2(name) {
-		if (!this._playing) return;
-		let source = TheAudioContext.createBufferSource();
-		source.buffer = this.bank[name];
-		source.playbackRate.value = Math.pow(2, Soundgeneration.sampleNoise() * 0.1);
-		source.connect(TheAudioDestination);
-		source.start();
-
-		this._source = source;
+		this.fxAPI.sendMessage(name);
 	},
 	toggle(value) {
 		this._playing = value;
@@ -102,6 +89,4 @@ let Sounds = {
 };
 
 
-module.exports = {
-	Sounds,
-};
+module.exports = { Sounds };
