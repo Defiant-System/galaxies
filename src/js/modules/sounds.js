@@ -1,6 +1,4 @@
 
-@import "../audio/song.js"
-
 
 let TheAudioContext = new window.AudioContext({ sampleRate: 22050 });
 let TheAudioDestination = TheAudioContext.createDynamicsCompressor();
@@ -14,7 +12,6 @@ class FxAPI extends AudioWorkletNode {
 	constructor(context, processor) {
 		super(context, processor);
 		this.port.onmessage = this.handleMessage.bind(this);
-		console.log("[Node:constructor] created.");
 	}
 
 	sendMessage(name) {

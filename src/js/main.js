@@ -44,6 +44,7 @@ gl.enableVertexAttribArray(0);
 @import "./modules/Shaders/GridShader.js"
 @import "./modules/Shaders/StarfieldShader.js"
 
+@import "./classes/song.js"
 @import "./modules/sounds.js"
 @import "./modules/entry.js"
 @import "./modules/Input.js"
