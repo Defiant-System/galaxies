@@ -32,7 +32,7 @@ class Song {
 	duckForABit() {
 		if (this._stopped) return;
 		this.channels.forEach(channel => {
-			channel.volumeParam.linearRampToValueAtTime(0, TheAudioContext.currentTime + 0.02);
+			channel.volumeParam.linearRampToValueAtTime(0, TheAudioContext.currentTime + 0.01);
 			channel.volumeParam.linearRampToValueAtTime(channel.volume, TheAudioContext.currentTime + 4);
 		});
 	}
