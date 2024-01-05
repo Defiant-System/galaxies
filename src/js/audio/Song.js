@@ -1,13 +1,12 @@
 
 class Song {
-	constructor (channelConfigs, loop) {
-		this.channelConfigs = channelConfigs;
+	constructor (options) {
+		this.loop = options.loop;
 		this.playing = false;
-		this.loop = loop;
 
 		let master = TheAudioContext.createGain();
 
-		this.channels = channelConfigs.map(config => {
+		this.channels = options.configs.map(config => {
 			let gainNode = TheAudioContext.createGain();
 
 			gainNode.connect(master);

@@ -3,10 +3,13 @@
 import SoundBank from "./sound-bank.js";
 
 
+
 class SoundFxWorklet extends AudioWorkletProcessor {
 	constructor() {
 		super();
+		
 		SoundBank.init();
+
 		this.port.onmessage = this.handleMessage.bind(this);
 	}
 
@@ -15,8 +18,9 @@ class SoundFxWorklet extends AudioWorkletProcessor {
 	}
 
 	sendMessage(message) {
-		let buffer = SoundBank[message.name];
-		this.port.postMessage({ buffer, contextTimestamp: currentTime });
+		let name = message.name;
+		let buffer = SoundBank[name];
+		this.port.postMessage({ name, buffer, contextTimestamp: currentTime });
 	}
 
 	process(inputs, outputs) {

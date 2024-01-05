@@ -1,19 +1,3 @@
-let TheAudioContext = new window.AudioContext({ sampleRate: 22050 });
-let TheAudioDestination = TheAudioContext.createDynamicsCompressor();
-let TheReverbDestination;
-let contextSampleRate = TheAudioContext.sampleRate;
-
-TheAudioDestination.connect(TheAudioContext.destination);
-
-
-function setReverbDestination (reverb) {
-	TheReverbDestination = TheAudioContext.createGain();
-	TheReverbDestination.gain.value = 0.7;
-	TheReverbDestination.connect(reverb);
-	reverb.connect(TheAudioDestination);
-}
-
-
 let Soundgeneration = {
 	createAudioBuffer(array) {
 		if (!Array.isArray(array)) array = [array];
@@ -382,14 +366,13 @@ let SongGeneration = {
 
 
 class Song {
-	constructor (channelConfigs, loop) {
-		this.channelConfigs = channelConfigs;
+	constructor (options) {
+		this.loop = options.loop;
 		this.playing = false;
-		this.loop = loop;
 
 		let master = TheAudioContext.createGain();
 
-		this.channels = channelConfigs.map(config => {
+		this.channels = options.configs.map(config => {
 			let gainNode = TheAudioContext.createGain();
 
 			gainNode.connect(master);

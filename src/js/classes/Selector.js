@@ -400,8 +400,8 @@ class Selector {
 
 		if (!this.hasBeenSolved && currentPuzzle.isSolved()) {
 			this.hasBeenSolved = true;
-			Sounds.VictorySong.play();
-			Sounds.MainSong.duckForABit();
+			Sounds["victory-song"].play();
+			Sounds["main-song"].duckForABit();
 			Input.pointerDown = false;
 
 			galaxies.dispatch({ type: "puzzle-solved" });
