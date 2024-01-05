@@ -14,7 +14,7 @@ class FxAPI extends AudioWorkletNode {
 		let name = event.data.name;
 		switch (name) {
 			case "progress":
-				console.log(event.data);
+				galaxies.dispatch({ type: "audio-progress", value: event.data.buffer });
 				break;
 			case "main-song":
 			case "victory-song":
@@ -22,7 +22,7 @@ class FxAPI extends AudioWorkletNode {
 				options.configs.map(item => { item.buffer = this.createAudioBuffer(item.output) });
 				Sounds[name] = new Song(options);
 				// start playing main song as soon as it is possible
-				// if (name === "main-song") Sounds[name].play();
+				if (name === "main-song") Sounds[name].play();
 				break;
 			case "reverbIR":
 				// create reverb

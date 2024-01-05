@@ -58,7 +58,10 @@ gl.enableVertexAttribArray(0);
 const galaxies = {
 	init() {
 		// fast references
-		this.content = window.find("content");
+		this.els = {
+			content: window.find("content"),
+			info: window.find(".audio-info"),
+		};
 
 		// create camera
 		TheCamera = new Camera();
@@ -83,7 +86,7 @@ const galaxies = {
 			case "restart-level":
 				selector.resetPuzzle();
 				// reset view
-				Self.content.removeClass("show-start show-pause show-success");
+				Self.els.content.removeClass("show-start show-pause show-success");
 				break;
 			case "toggle-music":
 				Sounds.toggle(Sounds._playing ? 0 : 1);
@@ -93,7 +96,7 @@ const galaxies = {
 				break;
 			case "new-puzzle":
 				// reset view
-				Self.content.removeClass("show-start show-pause show-success");
+				Self.els.content.removeClass("show-start show-pause show-success");
 				// reset game
 				mainFSM.setState(PUZZLE_FADE_OUT);
 				break;
@@ -118,7 +121,7 @@ const galaxies = {
 				break;
 			case "new-game":
 				// reset view
-				Self.content.removeClass("show-start show-pause show-success");
+				Self.els.content.removeClass("show-start show-pause show-success");
 
 				let puzzle = new PuzzleGenerator(puzzleSettings).generate();
 				currentPuzzle = puzzle;
@@ -131,12 +134,21 @@ const galaxies = {
 				mainFSM.isPaused = value;
 				if (!value) tick();
 				// show/hide pause view
-				Self.content[value ? "removeClass" : "addClass"]("show-pause");
+				Self.els.content[value ? "removeClass" : "addClass"]("show-pause");
 				// return state value
 				return value;
 			case "puzzle-solved":
 				// show fireworks
-				Self.content.addClass("show-success");
+				Self.els.content.addClass("show-success");
+				break;
+			case "audio-progress":
+				Self.els.info.css({ "--progress": event.value });
+				switch (event.value) {
+					// show progress bar
+					case 0: Self.els.info.addClass("show"); break;
+					// hide progress bar
+					case 100: Self.els.info.removeClass("show"); break;
+				}
 				break;
 			case "open-help":
 				karaqu.shell("fs -u '~/help/index.md'");

@@ -1,6 +1,6 @@
 <Application>
 	<Build>
-		<task action1="skip" source="src/js/audio-worklets/" destination="public/js/worklets/"/>
+		<task action="skip" source="src/js/audio-worklets/" destination="public/js/worklets/"/>
 	</Build>
 	<Head>
 		<meta name="id" value="galaxies"/>

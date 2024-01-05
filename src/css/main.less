@@ -1,7 +1,4 @@
 
-@import "fonts";
-
-
 overflow: visible;
 background: #000;
 color: #fff;
@@ -70,7 +67,7 @@ content {
 		left: 0;
 		right: 0;
 		bottom: 0;
-		padding: 143px 0 0 0;
+		padding: 131px 0 0 0;
 		text-align: center;
 		--iGlow: 0;
 
@@ -96,12 +93,12 @@ content {
 			// animation: glowAnim 4s linear infinite;
 		}
 
-		p {
+		p.how-to {
 			font-size: 22px;
 			// font-weight: 700;
 			text-transform: uppercase;
 			line-height: 1.35;
-			margin: 20px 0 0;
+			margin: 20px 0 35px;
 			background: linear-gradient(0deg,
 					hsl( calc( var( --iGlow ) * 1turn), 50%, 65%),
 					hsl( calc( var( --iGlow ) * 1turn + 45deg), 50%, 65%)
@@ -111,6 +108,55 @@ content {
 			color: transparent;
 			filter: url(#galaxy-glow);
 			animation: glowAnim 4s linear infinite;
+		}
+
+		.audio-info {
+			font-size: 14px;
+			background: linear-gradient(0deg,
+					hsl( calc( var( --iGlow ) * 1turn), 50%, 65%),
+					hsl( calc( var( --iGlow ) * 1turn + 45deg), 50%, 65%)
+				);
+			-webkit-background-clip: text;
+			background-clip: text;
+			color: transparent;
+			filter: url(#galaxy-glow);
+			animation: glowAnim 4s linear infinite;
+			opacity: 0;
+			transition: opacity 200ms ease-in-out;
+			transition-delay: 800ms;
+			--progress: 0;
+
+			&.show {
+				opacity: 1;
+				transition-duration: 400ms;
+				transition-delay: 0s;
+			}
+
+			.progress {
+				margin: 11px auto;
+				display: block;
+				position: relative;
+				background: rgba(#fff,.25);
+				width: 137px;
+				height: 3px;
+				border-radius: 3px;
+
+				span {
+					background: linear-gradient(90deg,
+							hsl( calc( var( --iGlow ) * 1turn), 50%, 65%),
+							hsl( calc( var( --iGlow ) * 1turn + 45deg), 50%, 65%)
+						);
+					position: absolute;
+					top: 0;
+					bottom: 0;
+					left: 0;
+					width: calc( var( --progress ) * 1% );
+					border-radius: inherit;
+					pointer-events: none;
+					transition: width 150ms ease-in-out;
+					animation: glowAnim 3s linear infinite;
+				}
+			}
 		}
 	}
 
