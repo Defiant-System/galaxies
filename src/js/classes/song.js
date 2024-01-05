@@ -1,6 +1,6 @@
 
 class Song {
-	constructor (options) {
+	constructor(options) {
 		this.loop = options.loop;
 		this.playing = false;
 
@@ -29,15 +29,7 @@ class Song {
 		master.connect(TheAudioDestination);
 	}
 
-	tapeStop (time = 1) {
-		this.playing = false;
-		this.channels.forEach(channel => {
-			channel.source.playbackRate.setValueAtTime(1, TheAudioContext.currentTime);
-			channel.source.playbackRate.linearRampToValueAtTime(0.001, TheAudioContext.currentTime + time);
-		})
-	}
-
-	duckForABit () {
+	duckForABit() {
 		if (this._stopped) return;
 		this.channels.forEach(channel => {
 			channel.volumeParam.linearRampToValueAtTime(0, TheAudioContext.currentTime + 0.02);
@@ -45,13 +37,21 @@ class Song {
 		});
 	}
 
-	play () {
-		if (this._stopped) return;
+	stop() {
+		if (!this.playing) return;
+		this._stopped = true;
+		this.playing = false;
+		this.channels.forEach(channel => {
+			channel.source.playbackRate.setValueAtTime(0, TheAudioContext.currentTime);
+			channel.source.playbackRate.linearRampToValueAtTime(0, TheAudioContext.currentTime);
+			channel.source.stop();
+		})
+	}
+
+	play() {
 		this.playing = true;
 		this.channels.forEach(channel => {
-			if (channel.source) {
-				channel.source.disconnect();
-			}
+			if (channel.source) channel.source.disconnect();
 
 			let sourceNode = TheAudioContext.createBufferSource();
 			sourceNode.loop = this.loop;

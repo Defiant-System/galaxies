@@ -88,9 +88,6 @@ const galaxies = {
 				// reset view
 				Self.els.content.removeClass("show-start show-pause show-success");
 				break;
-			case "toggle-music":
-				Sounds.toggle(Sounds._playing ? 0 : 1);
-				break;
 			case "solve-level":
 				selector.solvePuzzle();
 				break;
@@ -140,6 +137,9 @@ const galaxies = {
 			case "puzzle-solved":
 				// show fireworks
 				Self.els.content.addClass("show-success");
+				break;
+			case "toggle-music":
+				Sounds.toggle(Sounds._playing);
 				break;
 			case "audio-progress":
 				Self.els.info.css({ "--progress": event.value });

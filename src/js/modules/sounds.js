@@ -18,6 +18,9 @@ let Sounds = {
 		this.prepare("main-song");
 		this.prepare("victory-song");
 	},
+	get _playing() {
+		return this["main-song"] && this["main-song"].playing;
+	},
 	prepare(name) {
 		this.fxAPI.sendMessage(name);
 	},
@@ -25,10 +28,12 @@ let Sounds = {
 		this.fxAPI.sendMessage(name);
 	},
 	toggle(value) {
-		
+		if (this["main-song"]) {
+			this["main-song"][value ? "stop" : "play"]();
+		}
 	},
 	destroy() {
-		
+		TheAudioContext.close();
 	},
 	setReverbDestination(reverb) {
 		TheReverbDestination = TheAudioContext.createGain();
