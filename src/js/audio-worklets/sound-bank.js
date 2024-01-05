@@ -178,7 +178,8 @@ function createVictorySong() {
 				Composer.createTempBuffer(trackBeatCount, bpm),
 				Composer.createTempBuffer(trackBeatCount, bpm)
 			];
-
+		// progress value
+		SoundBank.worklet.sendMessage({ name: "progress", value: 33 });
 		Composer.addNotes([
 				[0, -19, 4],
 				[0.1, -12, 4],
@@ -187,7 +188,8 @@ function createVictorySong() {
 
 				[0.4, 5, 4],
 			], output, createPadsSound, bpm);
-
+		// progress value
+		SoundBank.worklet.sendMessage({ name: "progress", value: 37 });
 		let fadeOut = [
 				[0, 1],
 				[0.2, 1, 0.9],
@@ -196,9 +198,10 @@ function createVictorySong() {
 
 		Sampler.applyEnvelope(output[0], fadeOut);
 		Sampler.applyEnvelope(output[1], fadeOut);
+		// progress value
+		SoundBank.worklet.sendMessage({ name: "progress", value: 43 });
 
 		return output;
-		// return Sampler.createAudioBuffer(output);
 	}
 
 	let configs = [{ output: createMelodyTrack(), volume: 0.32, sendToReverb: 2 }];
@@ -206,7 +209,7 @@ function createVictorySong() {
 	return { configs, loop: false };
 }
 
-function createMainSong() {
+async function createMainSong() {
 	function createBassTrack() {
 		let loop = Composer.createTempBuffer(8 * 4, bpm);
 		Composer.addNotes([
@@ -226,7 +229,8 @@ function createMainSong() {
 			[12, -39, 4],
 		], loop2, createBassSound, bpm, true);
 
-		// await waitForNextFrame();
+		// progress value
+		SoundBank.worklet.sendMessage({ name: "progress", value: 55 });
 
 		let output = Composer.createTempBuffer(trackBeatCount, bpm);
 		output.set(loop, 0);
@@ -257,23 +261,27 @@ function createMainSong() {
 		let bb_5_9 = createChord([-23, -16, -9]);
 		let f_8_12 = createChord([-28, -16, -9]);
 
-		// await waitForNextFrame();
+		// progress value
+		SoundBank.worklet.sendMessage({ name: "progress", value: 66 });
 
 		let g_5_9_12 = createChord([-26, -19, -12, -7]);
 		let a_5_8_10 = createChord([-24, -17, -12, -9]);
 
-		// await waitForNextFrame();
+		// progress value
+		SoundBank.worklet.sendMessage({ name: "progress", value: 71 });
 
 		let bb_5_9_12 = createChord([-23, -16, -9, -4]);
 		let c_5_8_13 = createChord([-21, -14, -9, 0]);
 
-		// await waitForNextFrame();
+		// progress value
+		SoundBank.worklet.sendMessage({ name: "progress", value: 75 });
 
 		let d_5_10maj = createChord([-19, -12, -3]);
 		let bb_5_10 = createChord([-23, -16, -7]);
 		let gb_8_13a = createChord([-27, -15, -7]);
 
-		// await waitForNextFrame();
+		// progress value
+		SoundBank.worklet.sendMessage({ name: "progress", value: 79 });
 
 		let bb_5_10_12 = createChord([-23, -16, -7, -4]);
 		let c_5_8_10 = createChord([-21, -14, -9, -5]);
@@ -340,7 +348,8 @@ function createMainSong() {
 		let offset = Composer.getOffsetForBar(8, bpm);
 		main.set(main.slice(0, offset), offset);
 
-		// await waitForNextFrame();
+		// progress value
+		SoundBank.worklet.sendMessage({ name: "progress", value: 84 });
 
 		// Then add the notes that are different
 		Composer.addNotes([
@@ -377,7 +386,8 @@ function createMainSong() {
 			[44, 5],
 		], main, createPluckSound, bpm, true);
 
-		// await waitForNextFrame();
+		// progress value
+		SoundBank.worklet.sendMessage({ name: "progress", value: 91 });
 
 		let output = Composer.createTempBuffer(trackBeatCount, bpm);
 		output.set(main, Composer.getOffsetForBar(16, bpm));
@@ -387,9 +397,17 @@ function createMainSong() {
 
 	let bpm = 55;
 	let trackBeatCount = 128;
-	let bufferBass = createBassTrack();
-	let bufferPads = createPadsTrack();
-	let bufferMelody = createMelodyTrack();
+	let bufferBass = await createBassTrack();
+	// progress value
+	SoundBank.worklet.sendMessage({ name: "progress", value: 61 });
+
+	let bufferPads = await createPadsTrack();
+	// progress value
+	SoundBank.worklet.sendMessage({ name: "progress", value: 81 });
+
+	let bufferMelody = await createMelodyTrack();
+	// progress value
+	SoundBank.worklet.sendMessage({ name: "progress", value: 96 });
 
 	let configs = [
 		{ output: bufferBass, volume: 0.2 },
@@ -402,14 +420,34 @@ function createMainSong() {
 
 
 let SoundBank = {
-	init() {
-		this.error = createErrorSound();
-		this.lock = createLockSound();
-		this.place = createPlaceSound();
-		this.reverbIR = createReverbIR();
+	async init(worklet) {
+		this.worklet = worklet;
+		// start progress
+		this.worklet.sendMessage({ name: "progress", value: 0 });
 
-		this["main-song"] = createMainSong();
-		this["victory-song"] = createVictorySong();
+		this.error = await createErrorSound();
+		// progress value
+		this.worklet.sendMessage({ name: "progress", value: 6 });
+
+		this.lock = await createLockSound();
+		// progress value
+		this.worklet.sendMessage({ name: "progress", value: 11 });
+
+		this.place = await createPlaceSound();
+		// progress value
+		this.worklet.sendMessage({ name: "progress", value: 17 });
+		
+		this.reverbIR = await createReverbIR();
+		// progress value
+		this.worklet.sendMessage({ name: "progress", value: 28 });
+		
+		this["victory-song"] = await createVictorySong();
+		// progress value
+		this.worklet.sendMessage({ name: "progress", value: 47 });
+		
+		this["main-song"] = await createMainSong();
+		// progress value
+		this.worklet.sendMessage({ name: "progress", value: 100 });
 	}
 };
 

@@ -6,7 +6,7 @@ class SoundFxWorklet extends AudioWorkletProcessor {
 	constructor() {
 		super();
 		
-		SoundBank.init();
+		SoundBank.init(this);
 
 		this.port.onmessage = this.handleMessage.bind(this);
 	}
@@ -17,7 +17,7 @@ class SoundFxWorklet extends AudioWorkletProcessor {
 
 	sendMessage(message) {
 		let name = message.name;
-		let buffer = SoundBank[name];
+		let buffer = message.value ?? SoundBank[name];
 		this.port.postMessage({ name, buffer });
 	}
 
