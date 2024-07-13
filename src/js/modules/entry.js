@@ -81,7 +81,7 @@ let mainFSM = new FSM({
 }, INTRO);
 
 
-mainFSM.isPaused = false
+mainFSM.isPaused = true
 
 
 /**
@@ -123,24 +123,38 @@ function render() {
 	// fg.render();
 }
 
-function tick(time) {
-	if (mainFSM.isPaused) return;
+// create FPS control
+let fpsControl =  karaqu.FpsControl({
+	fps: 60,
+	callback(time) {
+		delta = clamp((time - lastTime) / 1000, 0.001, 0.5);
+		currentTime = window.performance.now() / 1000;
+		lastTime = time;
 
-	delta = clamp((time - lastTime) / 1000, 0.001, 0.5);
-	currentTime = window.performance.now() / 1000;
-	lastTime = time;
-
-	if (!isNaN(delta)) {
-		step();
-		render();
-		// updateDifficultyButton(puzzleSettings);
+		if (!isNaN(delta)) {
+			step();
+			render();
+		}
 	}
+});
 
-	requestAnimationFrame(tick);
-}
+// function tick(time) {
+// 	if (mainFSM.isPaused) return;
+// 	delta = clamp((time - lastTime) / 1000, 0.001, 0.5);
+// 	currentTime = window.performance.now() / 1000;
+// 	lastTime = time;
+// 	if (!isNaN(delta)) {
+// 		step();
+// 		render();
+// 		// updateDifficultyButton(puzzleSettings);
+// 	}
+// 	requestAnimationFrame(tick);
+// }
 
 let StarFieldTexture;
 generateStarField().then(texture => {
 	StarFieldTexture = texture;
-	tick();
+	mainFSM.isPaused = false;
+	fpsControl.start();
+	// tick();
 });

@@ -55,6 +55,14 @@ gl.enableVertexAttribArray(0);
 @import "./modules/test.js"
 
 
+// default preferences
+let Pref = {
+		music: false,
+		sound: true,
+		size: 7,
+	};
+
+
 const galaxies = {
 	init() {
 		// fast references
@@ -63,6 +71,10 @@ const galaxies = {
 			info: window.find(".audio-info"),
 		};
 
+		// get settings, if any
+		this.settings = window.settings.getItem("settings") || { ...Pref };
+		this.dispatch({ type: "apply-settings" });
+		
 		// create camera
 		TheCamera = new Camera();
 
@@ -78,11 +90,22 @@ const galaxies = {
 			case "window.init":
 				break;
 			case "window.close":
+				// kill audio
 				Sounds.destroy();
+				// save game state
+				window.settings.setItem("settings", Self.settings);
 				break;
-			// case "window.blur":
-			// case "window.focus":
-			// 	break;
+			
+			case "window.focus":
+				if (!mainFSM.isPaused) fpsControl.start();
+				break;
+			case "window.blur":
+				if (!mainFSM.isPaused) fpsControl.stop();
+				break;
+
+			case "apply-settings":
+				Self.dispatch({ type: "set-puzzle-size", arg: Self.settings.size, silent: true });
+				break;
 			case "restart-level":
 				selector.resetPuzzle();
 				// reset view
@@ -104,8 +127,15 @@ const galaxies = {
 				break;
 			case "set-puzzle-size":
 				puzzleSettings.size = +event.arg;
+				// save choise to settings 
+				Self.settings.size = puzzleSettings.size;
+				// update menu
+				window.bluePrint.selectNodes(`//Menu[@check-group="galaxies-puzzle-size"]`).map(xMenu => {
+					if (+xMenu.getAttribute("arg") === Self.settings.size) xMenu.setAttribute("is-checked", 1);
+					else xMenu.removeAttribute("is-checked");
+				});
 				// reset game
-				Self.dispatch({ type: "new-puzzle" });
+				if (!event.silent) Self.dispatch({ type: "new-puzzle" });
 				return true;
 			case "toggle-endless-game":
 				value = puzzleSettings.wrapping;
@@ -140,6 +170,8 @@ const galaxies = {
 				break;
 			case "toggle-music":
 				Sounds.toggle(Sounds._playing);
+				// save to settings
+				Self.settings.music = Sounds._playing;
 				break;
 			case "audio-progress":
 				Self.els.info.css({ "--progress": event.value });
