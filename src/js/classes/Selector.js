@@ -126,7 +126,7 @@ class Selector {
 						let spaceAtPointer = currentPuzzle.getSpaceAt(lastCursorPos);
 						if (currentTime >= this.startTimestamp + 0.2 || currentPuzzle.isLockedAt(spaceAtPointer)) {
 							if (currentPuzzle.toggleLockedAt(lastCursorPos)) {
-								Sounds.play("lock");
+								// Sounds.play("lock");
 							}
 						} else {
 							this.eraseAt(lastCursorPos);
@@ -394,14 +394,18 @@ class Selector {
 		this.fsm.updateFSM();
 
 		if (this.soundToPlay) {
-			Sounds.play(this.soundToPlay);
+			// Sounds.play(this.soundToPlay);
+			// play audio fx
+			window.audio.play(this.soundToPlay);
 			this.soundToPlay = null;
 		}
 
 		if (!this.hasBeenSolved && currentPuzzle.isSolved()) {
 			this.hasBeenSolved = true;
-			Sounds["victory-song"].play();
-			Sounds["main-song"].duckForABit();
+			// play audio fx
+			window.audio.play("victory");
+			// Sounds["victory-song"].play();
+			// Sounds["main-song"].duckForABit();
 			Input.pointerDown = false;
 
 			galaxies.dispatch({ type: "puzzle-solved" });

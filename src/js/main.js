@@ -44,10 +44,10 @@ gl.enableVertexAttribArray(0);
 @import "./modules/Shaders/GridShader.js"
 @import "./modules/Shaders/StarfieldShader.js"
 
-@import "./classes/Song.js"
-@import "./classes/FxAPI.js"
+//@-import "./classes/Song.js"
+//@-import "./classes/FxAPI.js"
 
-@import "./modules/sounds.js"
+//@-import "./modules/sounds.js"
 @import "./modules/entry.js"
 @import "./modules/Input.js"
 @import "./modules/StarFieldGenerator.js"
@@ -90,8 +90,6 @@ const galaxies = {
 			case "window.init":
 				break;
 			case "window.close":
-				// kill audio
-				Sounds.destroy();
 				// save game state
 				window.settings.setItem("settings", Self.settings);
 				break;
@@ -169,7 +167,6 @@ const galaxies = {
 				Self.els.content.addClass("show-success");
 				break;
 			case "toggle-music":
-				Sounds.toggle(Sounds._playing);
 				// save to settings
 				Self.settings.music = Sounds._playing;
 				break;
