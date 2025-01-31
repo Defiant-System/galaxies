@@ -1,4 +1,5 @@
 <Sounds>
+	<i id="tune-1" url="/cdn/audio/chiptune/return_of_the_ninja.xm"/>
 	<i id="place" url="~/audio/place.mp3"/>
 	<i id="error" url="~/audio/error.mp3"/>
 	<i id="victory" url="~/audio/victory.mp3"/>

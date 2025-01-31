@@ -78,6 +78,9 @@ const galaxies = {
 		// create camera
 		TheCamera = new Camera();
 
+		// music info
+		this.tune = { name: "tune-1" };
+
 		// DEV-ONLY-START
 		Test.init(this);
 		// DEV-ONLY-END
@@ -167,8 +170,29 @@ const galaxies = {
 				Self.els.content.addClass("show-success");
 				break;
 			case "toggle-music":
-				// save to settings
-				Self.settings.music = Sounds._playing;
+				if (!Self.tune.song) {
+					let opt = {
+							onend: e => {
+								if (!Self.tune.song) return;
+
+								let [a, b] = Self.tune.name.split("-");
+								b = (+b) + 1;
+								// next tune
+								if (b > 1) b = 1;
+								Self.tune.name = "tune-"+ b;
+								// play next song
+								playSong();
+							}
+						},
+						playSong = () => window.audio.play(Self.tune.name, opt)
+												.then(song => Self.tune.song = song);
+					playSong();
+
+					return true;
+				} else if (Self.tune.song) {
+					Self.tune.song.stop();
+					delete Self.tune.song;
+				}
 				break;
 			case "audio-progress":
 				Self.els.info.css({ "--progress": event.value });

@@ -33,7 +33,5 @@
 		</Menu>
 		<Menu type="divider"/>
 		<Menu name="Endless" click="toggle-endless-game" check-group="galaxies-endless-game" disabled="1"/>
-		<Menu type="divider"/>
-		<Menu name="Toggle Music" click="toggle-music"/>
 	</Menu>
 </MenuBar>

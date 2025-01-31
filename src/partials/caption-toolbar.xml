@@ -1,9 +1,6 @@
 <CaptionToolBar>
 	<Group width="13%">
-		<Options>
-			<Tool symbol="icon-undo" state="disabled"/>
-			<Tool symbol="icon-redo" state="disabled"/>
-		</Options>
+		<Tool name="Music" click="toggle-music"/>
 	</Group>
 	<Group>
 		<Options>
